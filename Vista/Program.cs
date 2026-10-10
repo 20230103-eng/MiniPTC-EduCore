@@ -10,7 +10,7 @@ namespace Vista
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPrincipalAdministrador());
+            Application.Run(new frmPrincipalProfesor());
         }
     }
 }

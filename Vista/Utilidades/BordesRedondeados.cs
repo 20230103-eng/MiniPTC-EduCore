@@ -48,7 +48,7 @@ namespace Vista
                 return;
             }
 
-            rectangulo = new Rectangle(0, 0, control.Width, control.Height);
+            rectangulo = new Rectangle(0, 0, control.Width - 1, control.Height - 1);
 
             using (GraphicsPath ruta = CrearRuta(rectangulo, radio))
             {

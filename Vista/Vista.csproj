@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -59,6 +59,12 @@
     <Compile Include="Formularios\Administrador\frmMaterias.Designer.cs"><DependentUpon>frmMaterias.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Administrador\frmCalificaciones.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Administrador\frmCalificaciones.Designer.cs"><DependentUpon>frmCalificaciones.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Profesor\frmPrincipalProfesor.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Profesor\frmPrincipalProfesor.Designer.cs"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Profesor\frmMateriasProfesor.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Profesor\frmMateriasProfesor.Designer.cs"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.Designer.cs"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></Compile>
     <Compile Include="Utilidades\ColoresInterfaz.cs" />
     <Compile Include="Utilidades\RecursosVisuales.cs" />
     <Compile Include="Utilidades\BordesRedondeados.cs" />
@@ -90,6 +96,9 @@
     <EmbeddedResource Include="Formularios\Administrador\frmProfesores.resx"><DependentUpon>frmProfesores.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmMaterias.resx"><DependentUpon>frmMaterias.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmCalificaciones.resx"><DependentUpon>frmCalificaciones.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Profesor\frmPrincipalProfesor.resx"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Profesor\frmMateriasProfesor.resx"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.resx"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administrador\UCTarjetaKPI.resx"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

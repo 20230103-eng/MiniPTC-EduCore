@@ -234,5 +234,65 @@ namespace Modelo.Modelo.Entidades
 
             return Convert.ToInt32(resultado);
         }
+
+        public DataTable ObtenerEstudiantesPorMateria(int idProfesor, int idMateria, int periodo, string nombreEvaluacion)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                tbInscripcion.IdInscripcion,
+                tbUsuario.Codigo,
+                tbUsuario.NombreCompleto AS Estudiante,
+                tbCalificacion.IdCalificacion,
+                tbCalificacion.Nota
+            FROM tbInscripcion
+            INNER JOIN tbUsuario ON tbInscripcion.IdEstudiante = tbUsuario.IdUsuario
+            INNER JOIN tbMateria ON tbInscripcion.IdMateria = tbMateria.IdMateria
+            LEFT JOIN tbCalificacion ON tbInscripcion.IdInscripcion = tbCalificacion.IdInscripcion
+                AND tbCalificacion.Periodo = @Periodo
+                AND tbCalificacion.NombreEvaluacion = @NombreEvaluacion
+            WHERE tbMateria.IdMateria = @IdMateria
+            AND tbMateria.IdProfesor = @IdProfesor
+            ORDER BY tbUsuario.NombreCompleto";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@Periodo", periodo);
+                    comando.Parameters.AddWithValue("@NombreEvaluacion", nombreEvaluacion);
+                    comando.Parameters.AddWithValue("@IdMateria", idMateria);
+                    comando.Parameters.AddWithValue("@IdProfesor", idProfesor);
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar los estudiantes de la materia.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
     }
 }

@@ -226,5 +226,58 @@ namespace Modelo.Modelo.Entidades
 
             return Convert.ToInt32(resultado);
         }
+
+        public DataTable ObtenerMateriasPorProfesor(int idProfesor, string textoBuscar)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                IdMateria,
+                Codigo,
+                Nombre,
+                IdProfesor,
+                Estado
+            FROM tbMateria
+            WHERE IdProfesor = @IdProfesor
+            AND (Codigo LIKE @Buscar OR Nombre LIKE @Buscar)
+            ORDER BY Nombre";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdProfesor", idProfesor);
+                    comando.Parameters.AddWithValue("@Buscar", "%" + textoBuscar + "%");
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar las materias del profesor.", "Materias", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace Vista
@@ -113,7 +113,7 @@ namespace Vista
             }
         }
 
-        private static void AplicarBotonSecundario(Button boton)
+        public static void AplicarBotonSecundario(Button boton)
         {
             boton.BackColor = ColoresInterfaz.AzulOscuro;
             boton.ForeColor = Color.White;
@@ -124,7 +124,7 @@ namespace Vista
             BordesRedondeados.AplicarRegion(boton, 6);
         }
 
-        private static void AplicarBotonPrimario(Button boton)
+        public static void AplicarBotonPrimario(Button boton)
         {
             boton.BackColor = ColoresInterfaz.Coral;
             boton.ForeColor = Color.White;
@@ -135,7 +135,7 @@ namespace Vista
             BordesRedondeados.AplicarRegion(boton, 6);
         }
 
-        private static void AplicarBotonEliminar(Button boton)
+        public static void AplicarBotonEliminar(Button boton)
         {
             boton.BackColor = Color.White;
             boton.ForeColor = ColoresInterfaz.Coral;
