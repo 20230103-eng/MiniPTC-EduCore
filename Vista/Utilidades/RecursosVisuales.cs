@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -11,6 +11,11 @@ namespace Vista
             string ruta;
             Bitmap imagenTemporal;
             Bitmap imagen;
+
+            if (string.IsNullOrWhiteSpace(nombreArchivo))
+            {
+                return null;
+            }
 
             ruta = Path.Combine(Application.StartupPath, "Recursos", nombreArchivo);
 

@@ -34,7 +34,17 @@ namespace Vista
             set
             {
                 archivoIcono = value;
-                picIcono.Image = RecursosVisuales.CargarImagen(archivoIcono);
+
+                if (picIcono.Image != null)
+                {
+                    picIcono.Image.Dispose();
+                    picIcono.Image = null;
+                }
+
+                if (string.IsNullOrWhiteSpace(archivoIcono) == false)
+                {
+                    picIcono.Image = RecursosVisuales.CargarImagen(archivoIcono);
+                }
             }
         }
 

@@ -277,7 +277,7 @@
             //
             // ucMaterias
             //
-            this.ucMaterias.ArchivoIcono = null;
+            this.ucMaterias.ArchivoIcono = "icon_book.png";
             this.ucMaterias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucMaterias.Location = new System.Drawing.Point(0, 0);
             this.ucMaterias.Margin = new System.Windows.Forms.Padding(0);
@@ -290,7 +290,7 @@
             //
             // ucCalificaciones
             //
-            this.ucCalificaciones.ArchivoIcono = null;
+            this.ucCalificaciones.ArchivoIcono = "icon_grades.png";
             this.ucCalificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucCalificaciones.Location = new System.Drawing.Point(0, 64);
             this.ucCalificaciones.Margin = new System.Windows.Forms.Padding(0);
