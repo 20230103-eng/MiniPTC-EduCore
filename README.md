@@ -1,5 +1,13 @@
 # eduCore
 
+## Integrantes
+
+- Pérez Echegoyen, Marcos Adrián
+- Ramírez Flores, Rafael Andrés
+- Zometa Escobar, Diego Alexander
+
+Desarrollo de Software B1 · Instituto Técnico Ricaldone
+
 ## 1. Configurar el servidor SQL
 
 En `Vista/App.config` cambia el valor de `ServidorSQL` por el nombre de tu instancia de SQL Server:
