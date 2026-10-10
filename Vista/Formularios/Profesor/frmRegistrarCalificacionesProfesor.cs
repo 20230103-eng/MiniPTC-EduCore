@@ -15,6 +15,7 @@ namespace Vista
         private bool cargandoControles;
 
         public event EventHandler VolverMaterias;
+        public event EventHandler GestionarEvaluaciones;
 
         public frmRegistrarCalificacionesProfesor()
         {
@@ -43,6 +44,7 @@ namespace Vista
             EstilosFormulario.AplicarBotonEliminar(btnEliminar);
             EstilosFormulario.AplicarBotonSecundario(btnVolver);
             EstilosFormulario.AplicarBotonSecundario(btnCargar);
+            EstilosFormulario.AplicarBotonSecundario(btnNuevaEvaluacion);
             EstilosFormulario.AplicarBotonPrimario(btnAplicarNota);
             EstilosFormulario.AplicarBotonEliminar(btnLimpiarEdicion);
 
@@ -53,6 +55,10 @@ namespace Vista
             btnCargar.Image = RecursosVisuales.CargarImagen("action_search.png", 16, 16);
             btnCargar.ImageAlign = ContentAlignment.MiddleLeft;
             btnCargar.TextImageRelation = TextImageRelation.ImageBeforeText;
+
+            btnNuevaEvaluacion.Image = RecursosVisuales.CargarImagen("icon_plus.png", 16, 16);
+            btnNuevaEvaluacion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNuevaEvaluacion.TextImageRelation = TextImageRelation.ImageBeforeText;
 
             nudNota.DecimalPlaces = 2;
             nudNota.Increment = 0.25M;
@@ -85,6 +91,7 @@ namespace Vista
         private void ReaplicarBordesBotones()
         {
             BordesRedondeados.AplicarRegion(btnCargar, 6);
+            BordesRedondeados.AplicarRegion(btnNuevaEvaluacion, 6);
             BordesRedondeados.AplicarRegion(btnAplicarNota, 6);
             BordesRedondeados.AplicarRegion(btnLimpiarEdicion, 6);
             BordesRedondeados.AplicarRegion(btnGuardar, 6);
@@ -138,50 +145,37 @@ namespace Vista
             int idMateria;
             int periodo;
             DataTable tabla;
-            string evaluacionActual;
-            int i;
-            string nombre;
+
+            cargandoControles = true;
+            cboEvaluacion.DataSource = null;
 
             if (cboMateria.SelectedValue == null || cboPeriodo.SelectedItem == null)
             {
-                cboEvaluacion.Items.Clear();
-                cboEvaluacion.Text = "";
+                cargandoControles = false;
                 return;
             }
 
             if (int.TryParse(cboMateria.SelectedValue.ToString(), out idMateria) == false)
             {
+                cargandoControles = false;
                 return;
             }
 
             periodo = Convert.ToInt32(cboPeriodo.SelectedItem);
-            evaluacionActual = cboEvaluacion.Text.Trim();
             tabla = calificacionModelo.ObtenerEvaluacionesPorMateria(idProfesorLogueado, idMateria, periodo);
 
-            cargandoControles = true;
-            cboEvaluacion.Items.Clear();
+            cboEvaluacion.DisplayMember = "NombreEvaluacion";
+            cboEvaluacion.ValueMember = "IdEvaluacion";
+            cboEvaluacion.DataSource = tabla;
 
-            for (i = 0; i < tabla.Rows.Count; i++)
-            {
-                nombre = tabla.Rows[i]["NombreEvaluacion"].ToString();
-
-                if (string.IsNullOrWhiteSpace(nombre) == false && cboEvaluacion.Items.Contains(nombre) == false)
-                {
-                    cboEvaluacion.Items.Add(nombre);
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(evaluacionActual) == false)
-            {
-                cboEvaluacion.Text = evaluacionActual;
-            }
-            else if (cboEvaluacion.Items.Count > 0)
+            if (tabla.Rows.Count > 0)
             {
                 cboEvaluacion.SelectedIndex = 0;
+                lblAyuda.Text = "Selecciona una evaluación, carga los estudiantes y asigna o modifica sus notas.";
             }
             else
             {
-                cboEvaluacion.Text = "Actividad 1";
+                lblAyuda.Text = "No hay evaluaciones creadas para esta materia y período. Usa Nueva evaluación para crear una.";
             }
 
             cargandoControles = false;
@@ -201,10 +195,9 @@ namespace Vista
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(cboEvaluacion.Text))
+            if (cboEvaluacion.SelectedValue == null || string.IsNullOrWhiteSpace(cboEvaluacion.Text))
             {
-                MessageBox.Show("Escribe o selecciona el nombre de la evaluación.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                cboEvaluacion.Focus();
+                MessageBox.Show("Primero crea y selecciona una evaluación.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
@@ -214,25 +207,13 @@ namespace Vista
         private void CargarEstudiantes()
         {
             int idMateria;
-            int periodo;
+            int idEvaluacion;
             DataTable tabla;
-            string nombreEvaluacion;
 
-            if (cboMateria.SelectedValue == null || cboPeriodo.SelectedItem == null)
+            if (cboMateria.SelectedValue == null || cboEvaluacion.SelectedValue == null)
             {
                 dgvCalificaciones.DataSource = null;
-                lblResumen.Text = "Selecciona una materia y un período.";
-                lblPromedio.Text = "Promedio: 0.00";
-                ReiniciarPanelEdicion();
-                return;
-            }
-
-            nombreEvaluacion = cboEvaluacion.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(nombreEvaluacion))
-            {
-                dgvCalificaciones.DataSource = null;
-                lblResumen.Text = "Escribe o selecciona una evaluación para cargar los estudiantes.";
+                lblResumen.Text = "Selecciona una materia y una evaluación.";
                 lblPromedio.Text = "Promedio: 0.00";
                 ReiniciarPanelEdicion();
                 return;
@@ -243,12 +224,15 @@ namespace Vista
                 return;
             }
 
-            periodo = Convert.ToInt32(cboPeriodo.SelectedItem);
+            if (int.TryParse(cboEvaluacion.SelectedValue.ToString(), out idEvaluacion) == false)
+            {
+                return;
+            }
+
             tabla = calificacionModelo.ObtenerEstudiantesPorMateria(
                 idProfesorLogueado,
                 idMateria,
-                periodo,
-                nombreEvaluacion);
+                idEvaluacion);
 
             dgvCalificaciones.DataSource = tabla;
             ConfigurarColumnas();
@@ -470,6 +454,14 @@ namespace Vista
             CargarEstudiantes();
         }
 
+        private void btnNuevaEvaluacion_Click(object sender, EventArgs e)
+        {
+            if (GestionarEvaluaciones != null)
+            {
+                GestionarEvaluaciones(this, EventArgs.Empty);
+            }
+        }
+
         private void btnCargar_Click(object sender, EventArgs e)
         {
             if (ValidarSeleccion() == false)
@@ -519,19 +511,22 @@ namespace Vista
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            int periodo;
+            int idEvaluacion;
             int cantidadGuardada;
             bool exito;
             DataGridViewRow fila;
-            string nombreEvaluacion;
 
             if (ValidarSeleccion() == false)
             {
                 return;
             }
 
-            periodo = Convert.ToInt32(cboPeriodo.SelectedItem);
-            nombreEvaluacion = cboEvaluacion.Text.Trim();
+            if (int.TryParse(cboEvaluacion.SelectedValue.ToString(), out idEvaluacion) == false)
+            {
+                MessageBox.Show("Selecciona una evaluación válida.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             cantidadGuardada = 0;
             exito = true;
 
@@ -544,7 +539,7 @@ namespace Vista
                     continue;
                 }
 
-                if (GuardarFila(fila, periodo, nombreEvaluacion, ref cantidadGuardada) == false)
+                if (GuardarFila(fila, idEvaluacion, ref cantidadGuardada) == false)
                 {
                     exito = false;
                     break;
@@ -563,12 +558,10 @@ namespace Vista
             }
 
             MessageBox.Show("Las calificaciones se guardaron correctamente.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            CargarEvaluaciones();
-            cboEvaluacion.Text = nombreEvaluacion;
             CargarEstudiantes();
         }
 
-        private bool GuardarFila(DataGridViewRow fila, int periodo, string nombreEvaluacion, ref int cantidadGuardada)
+        private bool GuardarFila(DataGridViewRow fila, int idEvaluacion, ref int cantidadGuardada)
         {
             string textoNota;
             decimal nota;
@@ -604,8 +597,7 @@ namespace Vista
             calificacion = new Calificacion();
             calificacion.IdCalificacion = idCalificacion;
             calificacion.IdInscripcion = Convert.ToInt32(fila.Cells["IdInscripcion"].Value);
-            calificacion.Periodo = periodo;
-            calificacion.NombreEvaluacion = nombreEvaluacion;
+            calificacion.IdEvaluacion = idEvaluacion;
             calificacion.Nota = nota;
             calificacion.Observacion = "";
 

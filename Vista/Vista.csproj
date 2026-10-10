@@ -59,14 +59,20 @@
     <Compile Include="Formularios\Administrador\frmProfesores.Designer.cs"><DependentUpon>frmProfesores.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Administrador\frmMaterias.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Administrador\frmMaterias.Designer.cs"><DependentUpon>frmMaterias.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmInscripciones.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmInscripciones.Designer.cs"><DependentUpon>frmInscripciones.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Administrador\frmCalificaciones.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Administrador\frmCalificaciones.Designer.cs"><DependentUpon>frmCalificaciones.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Compartidos\frmPerfilUsuario.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Compartidos\frmPerfilUsuario.Designer.cs"><DependentUpon>frmPerfilUsuario.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmPrincipalProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmPrincipalProfesor.Designer.cs"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmPanelProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmPanelProfesor.Designer.cs"><DependentUpon>frmPanelProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmMateriasProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmMateriasProfesor.Designer.cs"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Profesor\frmEvaluacionesProfesor.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Profesor\frmEvaluacionesProfesor.Designer.cs"><DependentUpon>frmEvaluacionesProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.Designer.cs"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Estudiante\frmPrincipalEstudiante.cs"><SubType>Form</SubType></Compile>
@@ -97,6 +103,8 @@
     <Compile Include="UserControls\Compartidos\UCBotonAccion.Designer.cs"><DependentUpon>UCBotonAccion.cs</DependentUpon></Compile>
     <Compile Include="UserControls\Compartidos\UCChipEstado.cs"><SubType>UserControl</SubType></Compile>
     <Compile Include="UserControls\Compartidos\UCChipEstado.Designer.cs"><DependentUpon>UCChipEstado.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCPerfilResumen.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCPerfilResumen.Designer.cs"><DependentUpon>UCPerfilResumen.cs</DependentUpon></Compile>
     <Compile Include="UserControls\Compartidos\UCEncabezadoPagina.cs"><SubType>UserControl</SubType></Compile>
     <Compile Include="UserControls\Compartidos\UCEncabezadoPagina.Designer.cs"><DependentUpon>UCEncabezadoPagina.cs</DependentUpon></Compile>
     <Compile Include="UserControls\Administrador\UCFilaUsuario.cs"><SubType>UserControl</SubType></Compile>
@@ -113,17 +121,20 @@
     <Compile Include="UserControls\Profesor\UCActividadProfesor.Designer.cs"><DependentUpon>UCActividadProfesor.cs</DependentUpon></Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Formularios\Compartidos\frmPerfilUsuario.resx"><DependentUpon>frmPerfilUsuario.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmPrincipalAdministrador.resx"><DependentUpon>frmPrincipalAdministrador.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmPanelAdministrador.resx"><DependentUpon>frmPanelAdministrador.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmUsuarios.resx"><DependentUpon>frmUsuarios.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmEstudiantes.resx"><DependentUpon>frmEstudiantes.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmProfesores.resx"><DependentUpon>frmProfesores.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmMaterias.resx"><DependentUpon>frmMaterias.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmInscripciones.resx"><DependentUpon>frmInscripciones.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmCalificaciones.resx"><DependentUpon>frmCalificaciones.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmPrincipalProfesor.resx"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmPanelProfesor.resx"><DependentUpon>frmPanelProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmMateriasProfesor.resx"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.resx"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Profesor\frmEvaluacionesProfesor.resx"><DependentUpon>frmEvaluacionesProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administrador\UCTarjetaKPI.resx"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

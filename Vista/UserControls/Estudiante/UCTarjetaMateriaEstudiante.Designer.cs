@@ -132,7 +132,7 @@
             // 
             this.tlpPie.ColumnCount = 2;
             this.tlpPie.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpPie.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tlpPie.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
             this.tlpPie.Controls.Add(this.lblPromedio, 0, 0);
             this.tlpPie.Controls.Add(this.btnVerCalificaciones, 1, 0);
             this.tlpPie.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -163,7 +163,7 @@
             this.btnVerCalificaciones.Location = new System.Drawing.Point(324, 0);
             this.btnVerCalificaciones.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnVerCalificaciones.Name = "btnVerCalificaciones";
-            this.btnVerCalificaciones.Size = new System.Drawing.Size(160, 32);
+            this.btnVerCalificaciones.Size = new System.Drawing.Size(135, 32);
             this.btnVerCalificaciones.TabIndex = 1;
             this.btnVerCalificaciones.Text = "Ver calificaciones";
             this.btnVerCalificaciones.UseVisualStyleBackColor = false;
@@ -174,7 +174,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpContenido);
-            this.MinimumSize = new System.Drawing.Size(340, 164);
+            this.MinimumSize = new System.Drawing.Size(320, 164);
             this.Name = "UCTarjetaMateriaEstudiante";
             this.Size = new System.Drawing.Size(520, 164);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.UCTarjetaMateriaEstudiante_Paint);

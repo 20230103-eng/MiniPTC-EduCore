@@ -14,6 +14,7 @@ namespace Modelo.Modelo.Entidades
         public int IdProfesor { get; set; }
         public bool Estado { get; set; }
 
+        // traemos todas las materias junto con el nombre de el profesor que la da
         public DataTable ObtenerMaterias()
         {
             string consulta;
@@ -60,6 +61,7 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+        // definimos el metodo insertar para guardar una materia nueva con su codigo, nombre, profesor y estado
         public bool Insertar()
         {
             string consulta;
@@ -104,6 +106,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // con este modificamos los datos de la materia que seleccionamos
         public bool Modificar()
         {
             string consulta;
@@ -151,6 +154,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // aca eliminamos la materia, si tiene estudiantes inscritos o evaluaciones no se puede borrar y mostramos un mensaje
         public bool Eliminar()
         {
             string consulta;
@@ -187,6 +191,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // contamos cuantas materias hay para mostrarlo en el panel de el administrador
         public int Contar()
         {
             string consulta;
@@ -227,6 +232,7 @@ namespace Modelo.Modelo.Entidades
             return Convert.ToInt32(resultado);
         }
 
+        // traemos solo las materias de el profesor que inicio sesion, tambien sirve para buscar por codigo o nombre
         public DataTable ObtenerMateriasPorProfesor(int idProfesor, string textoBuscar)
         {
             string consulta;
@@ -280,6 +286,7 @@ namespace Modelo.Modelo.Entidades
         }
 
 
+        // traemos las materias en las que esta inscrito el estudiante, tambien se puede buscar por codigo o nombre
         public DataTable ObtenerMateriasPorEstudiante(int idEstudiante, string textoBuscar)
         {
             string consulta;

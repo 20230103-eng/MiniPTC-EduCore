@@ -46,6 +46,7 @@
     <Compile Include="Modelo\Entidades\Materia.cs" />
     <Compile Include="Modelo\Entidades\Inscripcion.cs" />
     <Compile Include="Modelo\Entidades\Calificacion.cs" />
+    <Compile Include="Modelo\Entidades\Evaluacion.cs" />
     <Compile Include="Modelo\Infraestructura\Sesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

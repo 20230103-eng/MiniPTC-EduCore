@@ -23,6 +23,7 @@
         private System.Windows.Forms.TableLayoutPanel tlpCabeceraActividad;
         private System.Windows.Forms.Label lblTituloActividad;
         private System.Windows.Forms.Button btnVerCalificaciones;
+        private Vista.UCCajaBusqueda ucBuscarActividad;
         private System.Windows.Forms.FlowLayoutPanel flpActividad;
         private System.Windows.Forms.Label lblSinActividad;
 
@@ -57,6 +58,7 @@
             this.tlpCabeceraActividad = new System.Windows.Forms.TableLayoutPanel();
             this.lblTituloActividad = new System.Windows.Forms.Label();
             this.btnVerCalificaciones = new System.Windows.Forms.Button();
+            this.ucBuscarActividad = new Vista.UCCajaBusqueda();
             this.flpActividad = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSinActividad = new System.Windows.Forms.Label();
             this.tlpPagina.SuspendLayout();
@@ -288,14 +290,16 @@
             this.tlpActividad.ColumnCount = 1;
             this.tlpActividad.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpActividad.Controls.Add(this.tlpCabeceraActividad, 0, 0);
-            this.tlpActividad.Controls.Add(this.flpActividad, 0, 1);
-            this.tlpActividad.Controls.Add(this.lblSinActividad, 0, 2);
+            this.tlpActividad.Controls.Add(this.ucBuscarActividad, 0, 1);
+            this.tlpActividad.Controls.Add(this.flpActividad, 0, 2);
+            this.tlpActividad.Controls.Add(this.lblSinActividad, 0, 3);
             this.tlpActividad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpActividad.Location = new System.Drawing.Point(22, 18);
             this.tlpActividad.Margin = new System.Windows.Forms.Padding(0);
             this.tlpActividad.Name = "tlpActividad";
-            this.tlpActividad.RowCount = 3;
+            this.tlpActividad.RowCount = 4;
             this.tlpActividad.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tlpActividad.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tlpActividad.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpActividad.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tlpActividad.Size = new System.Drawing.Size(536, 637);
@@ -342,17 +346,29 @@
             this.btnVerCalificaciones.UseVisualStyleBackColor = false;
             this.btnVerCalificaciones.Click += new System.EventHandler(this.btnVerCalificaciones_Click);
             // 
+            // ucBuscarActividad
+            // 
+            this.ucBuscarActividad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucBuscarActividad.Location = new System.Drawing.Point(0, 58);
+            this.ucBuscarActividad.Margin = new System.Windows.Forms.Padding(0, 6, 0, 6);
+            this.ucBuscarActividad.Name = "ucBuscarActividad";
+            this.ucBuscarActividad.Size = new System.Drawing.Size(536, 42);
+            this.ucBuscarActividad.TabIndex = 1;
+            this.ucBuscarActividad.Texto = "";
+            this.ucBuscarActividad.TextoVacio = "Buscar materia o evaluación";
+            this.ucBuscarActividad.TextoCambiado += new System.EventHandler(this.ucBuscarActividad_TextoCambiado);
+            // 
             // flpActividad
             // 
             this.flpActividad.AutoScroll = true;
             this.flpActividad.BackColor = System.Drawing.Color.White;
             this.flpActividad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpActividad.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpActividad.Location = new System.Drawing.Point(0, 52);
+            this.flpActividad.Location = new System.Drawing.Point(0, 106);
             this.flpActividad.Margin = new System.Windows.Forms.Padding(0);
             this.flpActividad.Name = "flpActividad";
             this.flpActividad.Padding = new System.Windows.Forms.Padding(0, 8, 0, 8);
-            this.flpActividad.Size = new System.Drawing.Size(536, 551);
+            this.flpActividad.Size = new System.Drawing.Size(536, 497);
             this.flpActividad.TabIndex = 1;
             this.flpActividad.WrapContents = false;
             this.flpActividad.SizeChanged += new System.EventHandler(this.flpActividad_SizeChanged);

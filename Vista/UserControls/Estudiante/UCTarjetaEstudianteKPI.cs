@@ -18,6 +18,7 @@ namespace Vista
             colorIcono = ColoresInterfaz.CelesteClaro;
             pnlAcento.BackColor = colorAcento;
             pnlIcono.BackColor = colorIcono;
+            AjustarContenido();
         }
 
         public string Titulo
@@ -77,6 +78,37 @@ namespace Vista
                 colorIcono = value;
                 pnlIcono.BackColor = value;
             }
+        }
+
+
+        private void AjustarContenido()
+        {
+            if (Width < 220)
+            {
+                pnlIcono.Visible = false;
+                tlpContenido.ColumnStyles[0].Width = 0F;
+                tlpContenido.Padding = new Padding(8, 8, 8, 8);
+                lblValor.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
+            }
+            else if (Width < 280)
+            {
+                pnlIcono.Visible = true;
+                tlpContenido.ColumnStyles[0].Width = 52F;
+                tlpContenido.Padding = new Padding(8, 8, 8, 8);
+                lblValor.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
+            }
+            else
+            {
+                pnlIcono.Visible = true;
+                tlpContenido.ColumnStyles[0].Width = 66F;
+                tlpContenido.Padding = new Padding(10, 10, 10, 10);
+                lblValor.Font = new Font("Segoe UI Semibold", 16F, FontStyle.Bold);
+            }
+        }
+
+        private void UCTarjetaEstudianteKPI_Resize(object sender, EventArgs e)
+        {
+            AjustarContenido();
         }
 
         private void UCTarjetaEstudianteKPI_Paint(object sender, PaintEventArgs e)

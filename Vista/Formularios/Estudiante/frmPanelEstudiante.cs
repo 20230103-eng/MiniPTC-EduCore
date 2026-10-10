@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
@@ -12,6 +13,7 @@ namespace Vista
         private int idEstudianteLogueado;
         private Materia materiaModelo;
         private Calificacion calificacionModelo;
+        private DataTable tablaCalificacionesDashboard;
 
         public int IdMateriaSeleccionada { get; private set; }
         public event EventHandler VerMaterias;
@@ -23,6 +25,7 @@ namespace Vista
             idEstudianteLogueado = 4;
             materiaModelo = new Materia();
             calificacionModelo = new Calificacion();
+            tablaCalificacionesDashboard = new DataTable();
             ConfigurarVista();
         }
 
@@ -64,6 +67,7 @@ namespace Vista
             lblTituloActividad.Text = "Calificaciones recientes";
             lblSinMaterias.Text = "No hay materias inscritas.";
             lblSinActividad.Text = "Todavía no hay calificaciones registradas.";
+            ucBuscarActividad.TextoVacio = "Buscar materia o evaluación";
 
             EstilosFormulario.AplicarBotonSecundario(btnVerMaterias);
             EstilosFormulario.AplicarBotonPrimario(btnVerCalificaciones);
@@ -73,6 +77,11 @@ namespace Vista
 
         private void frmPanelEstudiante_Load(object sender, EventArgs e)
         {
+            if (Sesion.UsuarioActual != null && Sesion.UsuarioActual.IdUsuario == idEstudianteLogueado)
+            {
+                ucEncabezado.Titulo = "Bienvenido, " + Sesion.UsuarioActual.NombreCompleto;
+            }
+
             CargarDashboard();
         }
 
@@ -83,10 +92,11 @@ namespace Vista
 
             materias = materiaModelo.ObtenerMateriasPorEstudiante(idEstudianteLogueado, "");
             calificaciones = calificacionModelo.ObtenerCalificacionesPorEstudiante(idEstudianteLogueado);
+            tablaCalificacionesDashboard = calificaciones;
 
             CargarIndicadores(materias, calificaciones);
             CargarTarjetasMaterias(materias, calificaciones);
-            CargarCalificacionesRecientes(calificaciones);
+            AplicarFiltroActividad();
         }
 
         private void CargarIndicadores(DataTable materias, DataTable calificaciones)
@@ -273,6 +283,50 @@ namespace Vista
 
                 flpActividad.Controls.Add(tarjeta);
             }
+        }
+
+
+        private void AplicarFiltroActividad()
+        {
+            DataTable filtrada;
+            DataRow fila;
+            string texto;
+            string textoFila;
+            int i;
+
+            if (tablaCalificacionesDashboard == null)
+            {
+                return;
+            }
+
+            texto = ucBuscarActividad.Texto.Trim().ToLower();
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                CargarCalificacionesRecientes(tablaCalificacionesDashboard);
+                return;
+            }
+
+            filtrada = tablaCalificacionesDashboard.Clone();
+
+            for (i = 0; i < tablaCalificacionesDashboard.Rows.Count; i++)
+            {
+                fila = tablaCalificacionesDashboard.Rows[i];
+                textoFila = fila["Materia"].ToString() + " " + fila["NombreEvaluacion"].ToString();
+                textoFila = textoFila.ToLower();
+
+                if (textoFila.Contains(texto))
+                {
+                    filtrada.ImportRow(fila);
+                }
+            }
+
+            CargarCalificacionesRecientes(filtrada);
+        }
+
+        private void ucBuscarActividad_TextoCambiado(object sender, EventArgs e)
+        {
+            AplicarFiltroActividad();
         }
 
         private int ObtenerAnchoActividad()

@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
     public partial class frmPrincipalAdministrador : Form
     {
         private Form formularioActivo;
+        private int idAdministradorLogueado;
 
         public frmPrincipalAdministrador()
         {
             InitializeComponent();
+            idAdministradorLogueado = 1;
+
+            if (Sesion.UsuarioActual != null)
+            {
+                idAdministradorLogueado = Sesion.UsuarioActual.IdUsuario;
+            }
+
             CargarRecursos();
         }
 
@@ -74,6 +83,12 @@ namespace Vista
             SeleccionarMenu(ucMaterias);
         }
 
+        private void ucInscripciones_BotonClick(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmInscripciones());
+            SeleccionarMenu(ucInscripciones);
+        }
+
         private void ucCalificaciones_BotonClick(object sender, EventArgs e)
         {
             AbrirFormulario(new frmCalificaciones());
@@ -84,6 +99,32 @@ namespace Vista
         {
             AbrirFormulario(new frmUsuarios());
             SeleccionarMenu(ucUsuarios);
+        }
+
+        private void ucPerfil_BotonClick(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmPerfilUsuario(idAdministradorLogueado));
+            SeleccionarMenu(ucPerfil);
+        }
+
+        private void ucCerrarSesion_BotonClick(object sender, EventArgs e)
+        {
+            CerrarSesion();
+        }
+
+        private void CerrarSesion()
+        {
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Deseas cerrar la sesión actual?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                return;
+            }
+
+            Sesion.UsuarioActual = null;
+            Close();
         }
 
         private void MostrarPanelAdministrador()
@@ -126,8 +167,11 @@ namespace Vista
             ucEstudiantes.Seleccionado = false;
             ucProfesores.Seleccionado = false;
             ucMaterias.Seleccionado = false;
+            ucInscripciones.Seleccionado = false;
             ucCalificaciones.Seleccionado = false;
             ucUsuarios.Seleccionado = false;
+            ucPerfil.Seleccionado = false;
+            ucCerrarSesion.Seleccionado = false;
 
             menuActivo.Seleccionado = true;
         }

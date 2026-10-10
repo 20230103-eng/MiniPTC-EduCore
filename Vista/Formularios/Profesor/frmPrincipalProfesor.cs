@@ -75,6 +75,9 @@ namespace Vista
             ucInicio.ArchivoIcono = "icon_home.png";
             ucMaterias.ArchivoIcono = "icon_book.png";
             ucCalificaciones.ArchivoIcono = "icon_grades.png";
+            ucEvaluaciones.ArchivoIcono = "icon_edit.png";
+            ucPerfil.ArchivoIcono = "icon_user.png";
+            ucCerrarSesion.ArchivoIcono = "icon_delete.png";
         }
 
         private void ucInicio_BotonClick(object sender, EventArgs e)
@@ -90,6 +93,22 @@ namespace Vista
         private void ucCalificaciones_BotonClick(object sender, EventArgs e)
         {
             MostrarCalificaciones(0);
+        }
+
+        private void ucEvaluaciones_BotonClick(object sender, EventArgs e)
+        {
+            MostrarEvaluaciones();
+        }
+
+        private void ucPerfil_BotonClick(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmPerfilUsuario(idProfesorLogueado));
+            SeleccionarMenu(ucPerfil);
+        }
+
+        private void ucCerrarSesion_BotonClick(object sender, EventArgs e)
+        {
+            CerrarSesion();
         }
 
         private void MostrarInicio()
@@ -113,12 +132,23 @@ namespace Vista
             SeleccionarMenu(ucMaterias);
         }
 
+        private void MostrarEvaluaciones()
+        {
+            frmEvaluacionesProfesor formulario;
+
+            formulario = new frmEvaluacionesProfesor(idProfesorLogueado);
+            formulario.IrCalificaciones += new EventHandler(formularioEvaluaciones_IrCalificaciones);
+            AbrirFormulario(formulario);
+            SeleccionarMenu(ucEvaluaciones);
+        }
+
         private void MostrarCalificaciones(int idMateria)
         {
             frmRegistrarCalificacionesProfesor formulario;
 
             formulario = new frmRegistrarCalificacionesProfesor(idProfesorLogueado, idMateria);
             formulario.VolverMaterias += new EventHandler(formulario_VolverMaterias);
+            formulario.GestionarEvaluaciones += new EventHandler(formulario_GestionarEvaluaciones);
             AbrirFormulario(formulario);
             SeleccionarMenu(ucCalificaciones);
         }
@@ -161,6 +191,40 @@ namespace Vista
             MostrarMaterias();
         }
 
+        private void formulario_GestionarEvaluaciones(object sender, EventArgs e)
+        {
+            MostrarEvaluaciones();
+        }
+
+        private void formularioEvaluaciones_IrCalificaciones(object sender, EventArgs e)
+        {
+            frmEvaluacionesProfesor formulario;
+
+            formulario = sender as frmEvaluacionesProfesor;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarCalificaciones(formulario.IdMateriaSeleccionada);
+        }
+
+        private void CerrarSesion()
+        {
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Deseas cerrar la sesión actual?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                return;
+            }
+
+            Sesion.UsuarioActual = null;
+            Close();
+        }
+
         private void AbrirFormulario(Form formulario)
         {
             if (formularioActivo != null)
@@ -184,6 +248,9 @@ namespace Vista
             ucInicio.Seleccionado = false;
             ucMaterias.Seleccionado = false;
             ucCalificaciones.Seleccionado = false;
+            ucEvaluaciones.Seleccionado = false;
+            ucPerfil.Seleccionado = false;
+            ucCerrarSesion.Seleccionado = false;
             menuActivo.Seleccionado = true;
         }
     }

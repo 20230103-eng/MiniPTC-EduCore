@@ -65,6 +65,7 @@ namespace Modelo.Modelo.Entidades
             set { estado = value; }
         }
 
+        // con este metodo traemos todos los usuarios con el nombre de su tipo de usuario para mostrarlos en la tabla
         public DataTable ObtenerUsuarios()
         {
             string consulta;
@@ -112,6 +113,7 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+        // aca traemos solo los usuarios de un tipo, por ejemplo solo profesores o solo estudiantes, el tipo lo mandamos como parametro
         public DataTable ObtenerUsuariosPorTipo(string tipo)
         {
             string consulta;
@@ -165,6 +167,7 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+        // traemos los tipos de usuario que hay en la base de datos para llenar el combobox
         public DataTable ObtenerTiposUsuario()
         {
             string consulta;
@@ -200,6 +203,7 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+        // buscamos el id de el tipo de usuario usando su nombre
         public int ObtenerIdTipoUsuario(string tipo)
         {
             string consulta;
@@ -241,6 +245,7 @@ namespace Modelo.Modelo.Entidades
             return Convert.ToInt32(resultado);
         }
 
+        // definimos el metodo insertar, antes de guardar el usuario encriptamos la contraseña con bcrypt para que no quede guardada como texto normal en la base de datos
         public bool Insertar()
         {
             string consulta;
@@ -289,6 +294,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // con este modificamos el usuario, si escribieron una contraseña nueva la encriptamos y la cambiamos, si no la dejamos igual que antes
         public bool Modificar(bool cambiarContrasena)
         {
             string consulta;
@@ -363,6 +369,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // aca eliminamos el usuario usando su id
         public bool Eliminar()
         {
             string consulta;
@@ -399,6 +406,7 @@ namespace Modelo.Modelo.Entidades
             return filas > 0;
         }
 
+        // este es el metodo de el login, buscamos el usuario activo por su nombre de usuario y comparamos la contraseña que escribio con la que esta encriptada usando bcrypt, si es correcta devolvemos el usuario y si no devolvemos null
         public Usuario ValidarUsuario(string usuarioIngresado, string contrasenaIngresada)
         {
             string consulta;
@@ -477,6 +485,7 @@ namespace Modelo.Modelo.Entidades
             return usuario;
         }
 
+        // contamos cuantos usuarios hay de un tipo, esto lo usamos en el panel para los kpi
         public int ContarPorTipo(string tipo)
         {
             string consulta;
@@ -523,6 +532,7 @@ namespace Modelo.Modelo.Entidades
             return Convert.ToInt32(resultado);
         }
 
+        // traemos los datos de un solo usuario usando su id, lo usamos en mi perfil
         public DataTable ObtenerUsuarioPorId(int idUsuarioBuscado)
         {
             string consulta;
@@ -572,6 +582,98 @@ namespace Modelo.Modelo.Entidades
             }
 
             return tabla;
+        }
+
+
+        // aca revisamos que la contraseña actual que escribio sea la correcta antes de dejarlo cambiarla
+        public bool ValidarContrasenaActual(int idUsuarioBuscado, string contrasenaIngresada)
+        {
+            string consulta;
+            SqlConnection conexion;
+            object resultado;
+            string contrasenaGuardada;
+
+            consulta = "SELECT Contrasena FROM tbUsuario WHERE IdUsuario = @IdUsuario AND Estado = 1";
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return false;
+            }
+
+            resultado = null;
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuarioBuscado);
+                    resultado = comando.ExecuteScalar();
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible validar la contraseña actual.", "Perfil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            if (resultado == null || resultado == DBNull.Value)
+            {
+                return false;
+            }
+
+            contrasenaGuardada = resultado.ToString();
+            return BCrypt.Net.BCrypt.Verify(contrasenaIngresada, contrasenaGuardada);
+        }
+
+        // encriptamos la contraseña nueva con bcrypt y la actualizamos en la base de datos
+        public bool CambiarContrasena(int idUsuarioBuscado, string nuevaContrasena)
+        {
+            string consulta;
+            string contrasenaEncriptada;
+            SqlConnection conexion;
+            int filas;
+
+            contrasenaEncriptada = BCrypt.Net.BCrypt.HashPassword(nuevaContrasena);
+            consulta = @"
+            UPDATE tbUsuario
+            SET Contrasena = @Contrasena
+            WHERE IdUsuario = @IdUsuario
+            AND Estado = 1";
+
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return false;
+            }
+
+            filas = 0;
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@Contrasena", contrasenaEncriptada);
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuarioBuscado);
+                    filas = comando.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible cambiar la contraseña.", "Perfil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return filas > 0;
         }
 
     }

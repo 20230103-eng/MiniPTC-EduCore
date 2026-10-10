@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
 
@@ -35,6 +36,30 @@ namespace Vista
             ucBuscar.TextoVacio = "Buscar por código, materia o profesor";
             EstilosFormulario.AplicarGrid(dgvMaterias);
             EstilosFormulario.AplicarBotonSecundario(btnVerCalificaciones);
+
+            ucKpiTotal.Titulo = "Materias";
+            ucKpiTotal.Detalle = "Materias inscritas";
+            ucKpiTotal.ArchivoIcono = "kpi_book.png";
+            ucKpiTotal.ColorAcento = ColoresInterfaz.AzulOscuro;
+            ucKpiTotal.ColorIcono = Color.FromArgb(235, 244, 252);
+
+            ucKpiAprobadas.Titulo = "Aprobadas";
+            ucKpiAprobadas.Detalle = "Promedio de 6 o más";
+            ucKpiAprobadas.ArchivoIcono = "action_eye.png";
+            ucKpiAprobadas.ColorAcento = Color.FromArgb(87, 153, 112);
+            ucKpiAprobadas.ColorIcono = ColoresInterfaz.VerdeFondo;
+
+            ucKpiDesaprobadas.Titulo = "Desaprobadas";
+            ucKpiDesaprobadas.Detalle = "Promedio menor a 6";
+            ucKpiDesaprobadas.ArchivoIcono = "icon_grades.png";
+            ucKpiDesaprobadas.ColorAcento = ColoresInterfaz.Coral;
+            ucKpiDesaprobadas.ColorIcono = Color.FromArgb(255, 235, 229);
+
+            ucKpiEnCurso.Titulo = "En curso";
+            ucKpiEnCurso.Detalle = "Sin notas todavía";
+            ucKpiEnCurso.ArchivoIcono = "icon_book.png";
+            ucKpiEnCurso.ColorAcento = ColoresInterfaz.AzulClaro;
+            ucKpiEnCurso.ColorIcono = ColoresInterfaz.CelesteClaro;
         }
 
         private void frmMateriasEstudiante_Load(object sender, EventArgs e)
@@ -45,12 +70,26 @@ namespace Vista
         private void CargarMaterias()
         {
             DataTable tabla;
+            DataTable tablaCompleta;
             DataTable calificaciones;
-            int i;
-            int idMateria;
 
             tabla = materiaModelo.ObtenerMateriasPorEstudiante(idEstudianteLogueado, ucBuscar.Texto);
+            tablaCompleta = materiaModelo.ObtenerMateriasPorEstudiante(idEstudianteLogueado, "");
             calificaciones = calificacionModelo.ObtenerCalificacionesPorEstudiante(idEstudianteLogueado);
+
+            AgregarPromedios(tabla, calificaciones);
+            AgregarPromedios(tablaCompleta, calificaciones);
+
+            dgvMaterias.DataSource = tabla;
+            ConfigurarColumnas();
+            CargarIndicadores(tablaCompleta);
+            lblCantidad.Text = tabla.Rows.Count.ToString() + " materias mostradas";
+        }
+
+        private void AgregarPromedios(DataTable tabla, DataTable calificaciones)
+        {
+            int i;
+            int idMateria;
 
             if (tabla.Columns.Contains("Promedio") == false)
             {
@@ -62,10 +101,43 @@ namespace Vista
                 idMateria = Convert.ToInt32(tabla.Rows[i]["IdMateria"]);
                 tabla.Rows[i]["Promedio"] = ObtenerPromedioMateria(calificaciones, idMateria);
             }
+        }
 
-            dgvMaterias.DataSource = tabla;
-            ConfigurarColumnas();
-            lblCantidad.Text = tabla.Rows.Count.ToString() + " materias inscritas";
+        private void CargarIndicadores(DataTable materias)
+        {
+            int i;
+            int aprobadas;
+            int desaprobadas;
+            int enCurso;
+            decimal promedio;
+            string texto;
+
+            aprobadas = 0;
+            desaprobadas = 0;
+            enCurso = 0;
+
+            for (i = 0; i < materias.Rows.Count; i++)
+            {
+                texto = materias.Rows[i]["Promedio"].ToString();
+
+                if (texto == "--" || decimal.TryParse(texto, out promedio) == false)
+                {
+                    enCurso = enCurso + 1;
+                }
+                else if (promedio >= 6)
+                {
+                    aprobadas = aprobadas + 1;
+                }
+                else
+                {
+                    desaprobadas = desaprobadas + 1;
+                }
+            }
+
+            ucKpiTotal.Valor = materias.Rows.Count.ToString();
+            ucKpiAprobadas.Valor = aprobadas.ToString();
+            ucKpiDesaprobadas.Valor = desaprobadas.ToString();
+            ucKpiEnCurso.Valor = enCurso.ToString();
         }
 
         private string ObtenerPromedioMateria(DataTable calificaciones, int idMateria)

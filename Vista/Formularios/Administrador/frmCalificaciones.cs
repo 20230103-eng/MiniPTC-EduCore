@@ -10,14 +10,18 @@ namespace Vista
     {
         private Calificacion calificacionModelo;
         private Inscripcion inscripcionModelo;
+        private Evaluacion evaluacionModelo;
         private int idCalificacionSeleccionada;
+        private bool cargandoFormulario;
 
         public frmCalificaciones()
         {
             InitializeComponent();
             calificacionModelo = new Calificacion();
             inscripcionModelo = new Inscripcion();
+            evaluacionModelo = new Evaluacion();
             idCalificacionSeleccionada = 0;
+            cargandoFormulario = false;
             EstilosFormulario.AplicarFormularioCrud(this, pnlEncabezado, lblTitulo, lblModo, pnlFormulario, dgvCalificaciones, btnNuevo, btnGuardar, btnEliminar);
         }
 
@@ -28,20 +32,12 @@ namespace Vista
                 return;
             }
 
-            CargarPeriodos();
+            cargandoFormulario = true;
             CargarInscripciones();
+            CargarEvaluaciones();
+            cargandoFormulario = false;
             CargarCalificaciones();
             LimpiarFormulario();
-        }
-
-        private void CargarPeriodos()
-        {
-            cboPeriodo.Items.Clear();
-            cboPeriodo.Items.Add("1");
-            cboPeriodo.Items.Add("2");
-            cboPeriodo.Items.Add("3");
-            cboPeriodo.Items.Add("4");
-            cboPeriodo.SelectedIndex = 0;
         }
 
         private void CargarInscripciones()
@@ -52,6 +48,50 @@ namespace Vista
             cboInscripcion.DataSource = inscripciones;
             cboInscripcion.DisplayMember = "Descripcion";
             cboInscripcion.ValueMember = "IdInscripcion";
+        }
+
+        private int ObtenerIdMateriaSeleccionada()
+        {
+            DataRowView fila;
+
+            fila = cboInscripcion.SelectedItem as DataRowView;
+
+            if (fila == null)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(fila["IdMateria"]);
+        }
+
+        private void CargarEvaluaciones()
+        {
+            DataTable evaluaciones;
+            int idMateria;
+
+            idMateria = ObtenerIdMateriaSeleccionada();
+
+            if (idMateria == 0)
+            {
+                cboEvaluacion.DataSource = null;
+                return;
+            }
+
+            evaluaciones = evaluacionModelo.ObtenerPorMateria(idMateria);
+
+            if (evaluaciones.Columns.Contains("Descripcion") == false)
+            {
+                evaluaciones.Columns.Add("Descripcion", typeof(string));
+            }
+
+            foreach (DataRow fila in evaluaciones.Rows)
+            {
+                fila["Descripcion"] = "Período " + fila["Periodo"].ToString() + " - " + fila["Nombre"].ToString();
+            }
+
+            cboEvaluacion.DisplayMember = "Descripcion";
+            cboEvaluacion.ValueMember = "IdEvaluacion";
+            cboEvaluacion.DataSource = evaluaciones;
         }
 
         private void CargarCalificaciones()
@@ -73,9 +113,19 @@ namespace Vista
                 dgvCalificaciones.Columns["IdInscripcion"].Visible = false;
             }
 
+            if (dgvCalificaciones.Columns.Contains("IdEvaluacion"))
+            {
+                dgvCalificaciones.Columns["IdEvaluacion"].Visible = false;
+            }
+
             if (dgvCalificaciones.Columns.Contains("NombreEvaluacion"))
             {
                 dgvCalificaciones.Columns["NombreEvaluacion"].HeaderText = "Evaluación";
+            }
+
+            if (dgvCalificaciones.Columns.Contains("Periodo"))
+            {
+                dgvCalificaciones.Columns["Periodo"].HeaderText = "Período";
             }
 
             if (dgvCalificaciones.Columns.Contains("Nota"))
@@ -94,9 +144,9 @@ namespace Vista
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtEvaluacion.Text))
+            if (cboEvaluacion.SelectedValue == null)
             {
-                MessageBox.Show("Ingrese el nombre de la evaluación.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione una evaluación para la materia.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -126,8 +176,7 @@ namespace Vista
 
             calificacionModelo.IdCalificacion = idCalificacionSeleccionada;
             calificacionModelo.IdInscripcion = Convert.ToInt32(cboInscripcion.SelectedValue);
-            calificacionModelo.Periodo = Convert.ToInt32(cboPeriodo.Text);
-            calificacionModelo.NombreEvaluacion = txtEvaluacion.Text.Trim();
+            calificacionModelo.IdEvaluacion = Convert.ToInt32(cboEvaluacion.SelectedValue);
             calificacionModelo.Nota = Convert.ToDecimal(txtNota.Text);
             calificacionModelo.Observacion = txtObservacion.Text.Trim();
 
@@ -180,6 +229,16 @@ namespace Vista
             LimpiarFormulario();
         }
 
+        private void cboInscripcion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cargandoFormulario)
+            {
+                return;
+            }
+
+            CargarEvaluaciones();
+        }
+
         private void dgvCalificaciones_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow fila;
@@ -191,9 +250,13 @@ namespace Vista
 
             fila = dgvCalificaciones.Rows[e.RowIndex];
             idCalificacionSeleccionada = Convert.ToInt32(fila.Cells["IdCalificacion"].Value);
+
+            cargandoFormulario = true;
             cboInscripcion.SelectedValue = Convert.ToInt32(fila.Cells["IdInscripcion"].Value);
-            cboPeriodo.Text = fila.Cells["Periodo"].Value.ToString();
-            txtEvaluacion.Text = fila.Cells["NombreEvaluacion"].Value.ToString();
+            CargarEvaluaciones();
+            cboEvaluacion.SelectedValue = Convert.ToInt32(fila.Cells["IdEvaluacion"].Value);
+            cargandoFormulario = false;
+
             txtNota.Text = fila.Cells["Nota"].Value.ToString();
             txtObservacion.Text = fila.Cells["Observacion"].Value.ToString();
             lblModo.Text = "Editando calificación";
@@ -222,31 +285,35 @@ namespace Vista
             if (cantidad > 0)
             {
                 promedio = suma / cantidad;
-                lblPromedio.Text = "Promedio mostrado: " + promedio.ToString("0.00");
+                lblPromedio.Text = "Promedio: " + promedio.ToString("0.00");
             }
             else
             {
-                lblPromedio.Text = "Promedio mostrado: 0.00";
+                lblPromedio.Text = "Promedio: 0.00";
             }
         }
 
         private void LimpiarFormulario()
         {
             idCalificacionSeleccionada = 0;
-            txtEvaluacion.Clear();
             txtNota.Clear();
             txtObservacion.Clear();
 
-            if (cboPeriodo.Items.Count > 0)
-            {
-                cboPeriodo.SelectedIndex = 0;
-            }
+            cargandoFormulario = true;
 
             if (cboInscripcion.Items.Count > 0)
             {
                 cboInscripcion.SelectedIndex = 0;
             }
 
+            CargarEvaluaciones();
+
+            if (cboEvaluacion.Items.Count > 0)
+            {
+                cboEvaluacion.SelectedIndex = 0;
+            }
+
+            cargandoFormulario = false;
             lblModo.Text = "Nueva calificación";
         }
     }

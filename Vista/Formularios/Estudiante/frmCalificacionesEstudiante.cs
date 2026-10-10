@@ -45,6 +45,12 @@ namespace Vista
             ucKpiCantidad.ColorAcento = ColoresInterfaz.AzulOscuro;
             ucKpiCantidad.ColorIcono = Color.FromArgb(235, 244, 252);
 
+            ucKpiProgreso.Titulo = "Progreso";
+            ucKpiProgreso.Detalle = "Materias con calificaciones";
+            ucKpiProgreso.ArchivoIcono = "kpi_book.png";
+            ucKpiProgreso.ColorAcento = ColoresInterfaz.AzulClaro;
+            ucKpiProgreso.ColorIcono = ColoresInterfaz.CelesteClaro;
+
             ucKpiPromedio.Titulo = "Promedio";
             ucKpiPromedio.Detalle = "Promedio de resultados visibles";
             ucKpiPromedio.ArchivoIcono = "icon_grades.png";
@@ -70,6 +76,7 @@ namespace Vista
             cargandoFiltros = false;
 
             tablaCalificaciones = calificacionModelo.ObtenerCalificacionesPorEstudiante(idEstudianteLogueado);
+            CargarProgresoGeneral();
             AplicarFiltros();
         }
 
@@ -136,6 +143,53 @@ namespace Vista
             }
 
             cboMateria.SelectedIndex = 0;
+        }
+
+
+        private void CargarProgresoGeneral()
+        {
+            DataTable materias;
+            int totalMaterias;
+            int materiasConCalificacion;
+            int i;
+            int j;
+            int idMateria;
+            bool tieneCalificacion;
+            decimal progreso;
+
+            materias = materiaModelo.ObtenerMateriasPorEstudiante(idEstudianteLogueado, "");
+            totalMaterias = materias.Rows.Count;
+            materiasConCalificacion = 0;
+
+            for (i = 0; i < materias.Rows.Count; i++)
+            {
+                idMateria = Convert.ToInt32(materias.Rows[i]["IdMateria"]);
+                tieneCalificacion = false;
+
+                for (j = 0; j < tablaCalificaciones.Rows.Count; j++)
+                {
+                    if (Convert.ToInt32(tablaCalificaciones.Rows[j]["IdMateria"]) == idMateria &&
+                        tablaCalificaciones.Rows[j]["Nota"] != DBNull.Value)
+                    {
+                        tieneCalificacion = true;
+                        break;
+                    }
+                }
+
+                if (tieneCalificacion)
+                {
+                    materiasConCalificacion = materiasConCalificacion + 1;
+                }
+            }
+
+            progreso = 0;
+
+            if (totalMaterias > 0)
+            {
+                progreso = materiasConCalificacion * 100M / totalMaterias;
+            }
+
+            ucKpiProgreso.Valor = progreso.ToString("0") + "%";
         }
 
         private void AplicarFiltros()

@@ -6,9 +6,11 @@ namespace Modelo.Modelo
 {
     public class Conexion
     {
+        // ponemos el nombre de nuestra base de datos y el nombre de el servidor donde se encuentra
         private static string servidor = @".\MSSQLSERVER01";
         private static string baseDeDatos = "DbGestionAcademica";
 
+        // definimos el metodo conectar para conectarnos a la base de datos de el servidor, primero revisamos si en el app config pusimos otro servidor y si lo pusimos usamos ese, despues abrimos la conexion y la devolvemos para poder hacer consultas, si falla mostramos un mensaje y devolvemos null
         public static SqlConnection conectar()
         {
             string servidorConfigurado;
@@ -38,6 +40,7 @@ namespace Modelo.Modelo
             }
         }
 
+        // aca probamos si la conexion funciona, la abrimos y la cerramos de una vez, esto lo usamos en los formularios antes de cargar los datos
         public static bool ProbarConexion()
         {
             SqlConnection conexion;

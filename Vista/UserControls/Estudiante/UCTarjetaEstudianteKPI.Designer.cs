@@ -121,7 +121,7 @@
             // 
             // lblTitulo
             // 
-            this.lblTitulo.AutoEllipsis = true;
+            this.lblTitulo.AutoEllipsis = false;
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = ColoresInterfaz.Negro;
@@ -134,7 +134,7 @@
             // 
             // lblDetalle
             // 
-            this.lblDetalle.AutoEllipsis = true;
+            this.lblDetalle.AutoEllipsis = false;
             this.lblDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDetalle.Font = new System.Drawing.Font("Segoe UI", 7.8F);
             this.lblDetalle.ForeColor = ColoresInterfaz.TextoSecundario;
@@ -154,6 +154,7 @@
             this.MinimumSize = new System.Drawing.Size(170, 100);
             this.Name = "UCTarjetaEstudianteKPI";
             this.Size = new System.Drawing.Size(280, 108);
+            this.Resize += new System.EventHandler(this.UCTarjetaEstudianteKPI_Resize);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.UCTarjetaEstudianteKPI_Paint);
             this.tlpContenido.ResumeLayout(false);
             this.pnlIcono.ResumeLayout(false);

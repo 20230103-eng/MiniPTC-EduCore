@@ -21,6 +21,8 @@
         private Vista.UCBotonMenu ucInicio;
         private Vista.UCBotonMenu ucMaterias;
         private Vista.UCBotonMenu ucCalificaciones;
+        private Vista.UCBotonMenu ucPerfil;
+        private Vista.UCBotonMenu ucCerrarSesion;
         private System.Windows.Forms.Panel pnlUsuarioLateral;
         private System.Windows.Forms.TableLayoutPanel tlpUsuarioLateral;
         private System.Windows.Forms.Panel pnlLineaUsuario;
@@ -58,6 +60,8 @@
             this.ucInicio = new Vista.UCBotonMenu();
             this.ucMaterias = new Vista.UCBotonMenu();
             this.ucCalificaciones = new Vista.UCBotonMenu();
+            this.ucPerfil = new Vista.UCBotonMenu();
+            this.ucCerrarSesion = new Vista.UCBotonMenu();
             this.pnlUsuarioLateral = new System.Windows.Forms.Panel();
             this.tlpUsuarioLateral = new System.Windows.Forms.TableLayoutPanel();
             this.picUsuarioLateral = new System.Windows.Forms.PictureBox();
@@ -268,15 +272,19 @@
             this.tlpMenu.Controls.Add(this.ucInicio, 0, 0);
             this.tlpMenu.Controls.Add(this.ucMaterias, 0, 1);
             this.tlpMenu.Controls.Add(this.ucCalificaciones, 0, 2);
+            this.tlpMenu.Controls.Add(this.ucPerfil, 0, 3);
+            this.tlpMenu.Controls.Add(this.ucCerrarSesion, 0, 4);
             this.tlpMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpMenu.Location = new System.Drawing.Point(0, 0);
             this.tlpMenu.Margin = new System.Windows.Forms.Padding(0);
             this.tlpMenu.Name = "tlpMenu";
-            this.tlpMenu.RowCount = 3;
+            this.tlpMenu.RowCount = 5;
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            this.tlpMenu.Size = new System.Drawing.Size(287, 192);
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tlpMenu.Size = new System.Drawing.Size(287, 320);
             this.tlpMenu.TabIndex = 0;
             //
             // ucInicio
@@ -317,6 +325,32 @@
             this.ucCalificaciones.TabIndex = 2;
             this.ucCalificaciones.Texto = "Calificaciones";
             this.ucCalificaciones.BotonClick += new System.EventHandler(this.ucCalificaciones_BotonClick);
+            //
+            // ucPerfil
+            //
+            this.ucPerfil.ArchivoIcono = "icon_user.png";
+            this.ucPerfil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucPerfil.Location = new System.Drawing.Point(0, 192);
+            this.ucPerfil.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPerfil.Name = "ucPerfil";
+            this.ucPerfil.Seleccionado = false;
+            this.ucPerfil.Size = new System.Drawing.Size(287, 64);
+            this.ucPerfil.TabIndex = 3;
+            this.ucPerfil.Texto = "Mi perfil";
+            this.ucPerfil.BotonClick += new System.EventHandler(this.ucPerfil_BotonClick);
+            //
+            // ucCerrarSesion
+            //
+            this.ucCerrarSesion.ArchivoIcono = "icon_delete.png";
+            this.ucCerrarSesion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucCerrarSesion.Location = new System.Drawing.Point(0, 256);
+            this.ucCerrarSesion.Margin = new System.Windows.Forms.Padding(0);
+            this.ucCerrarSesion.Name = "ucCerrarSesion";
+            this.ucCerrarSesion.Seleccionado = false;
+            this.ucCerrarSesion.Size = new System.Drawing.Size(287, 64);
+            this.ucCerrarSesion.TabIndex = 4;
+            this.ucCerrarSesion.Texto = "Cerrar sesión";
+            this.ucCerrarSesion.BotonClick += new System.EventHandler(this.ucCerrarSesion_BotonClick);
             //
             // pnlUsuarioLateral
             //

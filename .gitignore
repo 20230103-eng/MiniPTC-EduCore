@@ -5,3 +5,6 @@ packages/
 *.user
 *.suo
 *.txt
+*.userosscache
+*.sln.docstates
+TestResults/

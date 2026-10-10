@@ -18,6 +18,7 @@
         private Vista.UCTarjetaEstudianteKPI ucKpiCantidad;
         private Vista.UCTarjetaEstudianteKPI ucKpiPromedio;
         private Vista.UCTarjetaEstudianteKPI ucKpiMejor;
+        private Vista.UCTarjetaEstudianteKPI ucKpiProgreso;
         private System.Windows.Forms.TableLayoutPanel tlpResumen;
         private System.Windows.Forms.Label lblResumen;
         private System.Windows.Forms.DataGridView dgvCalificaciones;
@@ -48,6 +49,7 @@
             this.ucKpiCantidad = new Vista.UCTarjetaEstudianteKPI();
             this.ucKpiPromedio = new Vista.UCTarjetaEstudianteKPI();
             this.ucKpiMejor = new Vista.UCTarjetaEstudianteKPI();
+            this.ucKpiProgreso = new Vista.UCTarjetaEstudianteKPI();
             this.tlpResumen = new System.Windows.Forms.TableLayoutPanel();
             this.lblResumen = new System.Windows.Forms.Label();
             this.dgvCalificaciones = new System.Windows.Forms.DataGridView();
@@ -220,13 +222,15 @@
             // 
             // tlpIndicadores
             // 
-            this.tlpIndicadores.ColumnCount = 3;
-            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpIndicadores.ColumnCount = 4;
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpIndicadores.Controls.Add(this.ucKpiCantidad, 0, 0);
-            this.tlpIndicadores.Controls.Add(this.ucKpiPromedio, 1, 0);
-            this.tlpIndicadores.Controls.Add(this.ucKpiMejor, 2, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiProgreso, 1, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiPromedio, 2, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiMejor, 3, 0);
             this.tlpIndicadores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpIndicadores.Location = new System.Drawing.Point(30, 226);
             this.tlpIndicadores.Margin = new System.Windows.Forms.Padding(0);
@@ -242,26 +246,35 @@
             this.ucKpiCantidad.Location = new System.Drawing.Point(0, 8);
             this.ucKpiCantidad.Margin = new System.Windows.Forms.Padding(0, 8, 10, 8);
             this.ucKpiCantidad.Name = "ucKpiCantidad";
-            this.ucKpiCantidad.Size = new System.Drawing.Size(509, 116);
+            this.ucKpiCantidad.Size = new System.Drawing.Size(379, 116);
             this.ucKpiCantidad.TabIndex = 0;
+            // 
+            // ucKpiProgreso
+            // 
+            this.ucKpiProgreso.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucKpiProgreso.Location = new System.Drawing.Point(399, 8);
+            this.ucKpiProgreso.Margin = new System.Windows.Forms.Padding(10, 8, 10, 8);
+            this.ucKpiProgreso.Name = "ucKpiProgreso";
+            this.ucKpiProgreso.Size = new System.Drawing.Size(369, 116);
+            this.ucKpiProgreso.TabIndex = 1;
             // 
             // ucKpiPromedio
             // 
             this.ucKpiPromedio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucKpiPromedio.Location = new System.Drawing.Point(529, 8);
+            this.ucKpiPromedio.Location = new System.Drawing.Point(788, 8);
             this.ucKpiPromedio.Margin = new System.Windows.Forms.Padding(10, 8, 10, 8);
             this.ucKpiPromedio.Name = "ucKpiPromedio";
-            this.ucKpiPromedio.Size = new System.Drawing.Size(499, 116);
-            this.ucKpiPromedio.TabIndex = 1;
+            this.ucKpiPromedio.Size = new System.Drawing.Size(369, 116);
+            this.ucKpiPromedio.TabIndex = 2;
             // 
             // ucKpiMejor
             // 
             this.ucKpiMejor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucKpiMejor.Location = new System.Drawing.Point(1048, 8);
+            this.ucKpiMejor.Location = new System.Drawing.Point(1177, 8);
             this.ucKpiMejor.Margin = new System.Windows.Forms.Padding(10, 8, 0, 8);
             this.ucKpiMejor.Name = "ucKpiMejor";
-            this.ucKpiMejor.Size = new System.Drawing.Size(509, 116);
-            this.ucKpiMejor.TabIndex = 2;
+            this.ucKpiMejor.Size = new System.Drawing.Size(380, 116);
+            this.ucKpiMejor.TabIndex = 3;
             // 
             // tlpResumen
             // 

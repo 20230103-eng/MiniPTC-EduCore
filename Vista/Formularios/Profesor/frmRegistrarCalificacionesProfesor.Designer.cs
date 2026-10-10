@@ -14,6 +14,7 @@
         private System.Windows.Forms.ComboBox cboPeriodo;
         private System.Windows.Forms.ComboBox cboEvaluacion;
         private System.Windows.Forms.Button btnCargar;
+        private System.Windows.Forms.Button btnNuevaEvaluacion;
         private System.Windows.Forms.Label lblAyuda;
         private System.Windows.Forms.TableLayoutPanel tlpResumen;
         private System.Windows.Forms.Label lblResumen;
@@ -54,6 +55,7 @@
             this.cboPeriodo = new System.Windows.Forms.ComboBox();
             this.cboEvaluacion = new System.Windows.Forms.ComboBox();
             this.btnCargar = new System.Windows.Forms.Button();
+            this.btnNuevaEvaluacion = new System.Windows.Forms.Button();
             this.lblAyuda = new System.Windows.Forms.Label();
             this.tlpResumen = new System.Windows.Forms.TableLayoutPanel();
             this.lblResumen = new System.Windows.Forms.Label();
@@ -146,6 +148,7 @@
             this.tlpSeleccion.Controls.Add(this.cboEvaluacion, 2, 1);
             this.tlpSeleccion.Controls.Add(this.btnCargar, 3, 1);
             this.tlpSeleccion.Controls.Add(this.lblAyuda, 0, 2);
+            this.tlpSeleccion.Controls.Add(this.btnNuevaEvaluacion, 3, 2);
             this.tlpSeleccion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpSeleccion.Location = new System.Drawing.Point(18, 14);
             this.tlpSeleccion.Margin = new System.Windows.Forms.Padding(0);
@@ -156,7 +159,7 @@
             this.tlpSeleccion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpSeleccion.Size = new System.Drawing.Size(1521, 114);
             this.tlpSeleccion.TabIndex = 0;
-            this.tlpSeleccion.SetColumnSpan(this.lblAyuda, 4);
+            this.tlpSeleccion.SetColumnSpan(this.lblAyuda, 3);
             // 
             // lblMateria
             // 
@@ -223,7 +226,7 @@
             // cboEvaluacion
             // 
             this.cboEvaluacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cboEvaluacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cboEvaluacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEvaluacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboEvaluacion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cboEvaluacion.FormattingEnabled = true;
@@ -245,6 +248,18 @@
             this.btnCargar.UseVisualStyleBackColor = false;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
+            // btnNuevaEvaluacion
+            // 
+            this.btnNuevaEvaluacion.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnNuevaEvaluacion.Location = new System.Drawing.Point(1325, 77);
+            this.btnNuevaEvaluacion.Margin = new System.Windows.Forms.Padding(8, 4, 0, 0);
+            this.btnNuevaEvaluacion.Name = "btnNuevaEvaluacion";
+            this.btnNuevaEvaluacion.Size = new System.Drawing.Size(196, 32);
+            this.btnNuevaEvaluacion.TabIndex = 7;
+            this.btnNuevaEvaluacion.Text = "Nueva evaluación";
+            this.btnNuevaEvaluacion.UseVisualStyleBackColor = false;
+            this.btnNuevaEvaluacion.Click += new System.EventHandler(this.btnNuevaEvaluacion_Click);
+            // 
             // lblAyuda
             // 
             this.lblAyuda.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -252,9 +267,9 @@
             this.lblAyuda.ForeColor = ColoresInterfaz.TextoSecundario;
             this.lblAyuda.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
             this.lblAyuda.Name = "lblAyuda";
-            this.lblAyuda.Size = new System.Drawing.Size(1521, 36);
-            this.lblAyuda.TabIndex = 7;
-            this.lblAyuda.Text = "Selecciona o escribe una evaluación, carga los estudiantes y luego asigna o modifica la nota del estudiante seleccionado.";
+            this.lblAyuda.Size = new System.Drawing.Size(1269, 36);
+            this.lblAyuda.TabIndex = 8;
+            this.lblAyuda.Text = "Selecciona una evaluación, carga los estudiantes y luego asigna o modifica la nota del estudiante seleccionado.";
             this.lblAyuda.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             // 
             // tlpResumen

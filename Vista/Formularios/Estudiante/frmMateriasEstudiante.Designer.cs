@@ -5,6 +5,11 @@
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TableLayoutPanel tlpPagina;
         private Vista.UCEncabezadoPagina ucEncabezado;
+        private System.Windows.Forms.TableLayoutPanel tlpIndicadores;
+        private Vista.UCTarjetaEstudianteKPI ucKpiTotal;
+        private Vista.UCTarjetaEstudianteKPI ucKpiAprobadas;
+        private Vista.UCTarjetaEstudianteKPI ucKpiDesaprobadas;
+        private Vista.UCTarjetaEstudianteKPI ucKpiEnCurso;
         private System.Windows.Forms.TableLayoutPanel tlpFiltros;
         private Vista.UCCajaBusqueda ucBuscar;
         private System.Windows.Forms.Label lblCantidad;
@@ -25,6 +30,11 @@
         {
             this.tlpPagina = new System.Windows.Forms.TableLayoutPanel();
             this.ucEncabezado = new Vista.UCEncabezadoPagina();
+            this.tlpIndicadores = new System.Windows.Forms.TableLayoutPanel();
+            this.ucKpiTotal = new Vista.UCTarjetaEstudianteKPI();
+            this.ucKpiAprobadas = new Vista.UCTarjetaEstudianteKPI();
+            this.ucKpiDesaprobadas = new Vista.UCTarjetaEstudianteKPI();
+            this.ucKpiEnCurso = new Vista.UCTarjetaEstudianteKPI();
             this.tlpFiltros = new System.Windows.Forms.TableLayoutPanel();
             this.ucBuscar = new Vista.UCCajaBusqueda();
             this.lblCantidad = new System.Windows.Forms.Label();
@@ -32,6 +42,7 @@
             this.flpAcciones = new System.Windows.Forms.FlowLayoutPanel();
             this.btnVerCalificaciones = new System.Windows.Forms.Button();
             this.tlpPagina.SuspendLayout();
+            this.tlpIndicadores.SuspendLayout();
             this.tlpFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterias)).BeginInit();
             this.flpAcciones.SuspendLayout();
@@ -42,15 +53,17 @@
             this.tlpPagina.ColumnCount = 1;
             this.tlpPagina.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPagina.Controls.Add(this.ucEncabezado, 0, 0);
-            this.tlpPagina.Controls.Add(this.tlpFiltros, 0, 1);
-            this.tlpPagina.Controls.Add(this.dgvMaterias, 0, 2);
-            this.tlpPagina.Controls.Add(this.flpAcciones, 0, 3);
+            this.tlpPagina.Controls.Add(this.tlpIndicadores, 0, 1);
+            this.tlpPagina.Controls.Add(this.tlpFiltros, 0, 2);
+            this.tlpPagina.Controls.Add(this.dgvMaterias, 0, 3);
+            this.tlpPagina.Controls.Add(this.flpAcciones, 0, 4);
             this.tlpPagina.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpPagina.Location = new System.Drawing.Point(0, 0);
             this.tlpPagina.Name = "tlpPagina";
             this.tlpPagina.Padding = new System.Windows.Forms.Padding(30, 24, 30, 22);
-            this.tlpPagina.RowCount = 4;
+            this.tlpPagina.RowCount = 5;
             this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 132F));
             this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
@@ -68,6 +81,46 @@
             this.ucEncabezado.TabIndex = 0;
             this.ucEncabezado.Titulo = "Mis materias";
             //
+            // tlpIndicadores
+            //
+            this.tlpIndicadores.ColumnCount = 4;
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpIndicadores.Controls.Add(this.ucKpiTotal, 0, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiAprobadas, 1, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiDesaprobadas, 2, 0);
+            this.tlpIndicadores.Controls.Add(this.ucKpiEnCurso, 3, 0);
+            this.tlpIndicadores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpIndicadores.Margin = new System.Windows.Forms.Padding(0, 8, 0, 8);
+            this.tlpIndicadores.RowCount = 1;
+            this.tlpIndicadores.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            //
+            // ucKpiTotal
+            //
+            this.ucKpiTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucKpiTotal.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
+            this.ucKpiTotal.Name = "ucKpiTotal";
+            //
+            // ucKpiAprobadas
+            //
+            this.ucKpiAprobadas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucKpiAprobadas.Margin = new System.Windows.Forms.Padding(4, 0, 8, 0);
+            this.ucKpiAprobadas.Name = "ucKpiAprobadas";
+            //
+            // ucKpiDesaprobadas
+            //
+            this.ucKpiDesaprobadas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucKpiDesaprobadas.Margin = new System.Windows.Forms.Padding(4, 0, 8, 0);
+            this.ucKpiDesaprobadas.Name = "ucKpiDesaprobadas";
+            //
+            // ucKpiEnCurso
+            //
+            this.ucKpiEnCurso.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucKpiEnCurso.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.ucKpiEnCurso.Name = "ucKpiEnCurso";
+            //
             // tlpFiltros
             //
             this.tlpFiltros.ColumnCount = 2;
@@ -76,7 +129,7 @@
             this.tlpFiltros.Controls.Add(this.ucBuscar, 0, 0);
             this.tlpFiltros.Controls.Add(this.lblCantidad, 1, 0);
             this.tlpFiltros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpFiltros.Location = new System.Drawing.Point(30, 108);
+            this.tlpFiltros.Location = new System.Drawing.Point(30, 240);
             this.tlpFiltros.Margin = new System.Windows.Forms.Padding(0);
             this.tlpFiltros.Name = "tlpFiltros";
             this.tlpFiltros.RowCount = 1;
@@ -114,7 +167,7 @@
             this.dgvMaterias.AllowUserToDeleteRows = false;
             this.dgvMaterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMaterias.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvMaterias.Location = new System.Drawing.Point(30, 180);
+            this.dgvMaterias.Location = new System.Drawing.Point(30, 312);
             this.dgvMaterias.Margin = new System.Windows.Forms.Padding(0, 0, 0, 12);
             this.dgvMaterias.Name = "dgvMaterias";
             this.dgvMaterias.ReadOnly = true;
@@ -159,6 +212,7 @@
             this.Text = "Mis materias";
             this.Load += new System.EventHandler(this.frmMateriasEstudiante_Load);
             this.tlpPagina.ResumeLayout(false);
+            this.tlpIndicadores.ResumeLayout(false);
             this.tlpFiltros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterias)).EndInit();
             this.flpAcciones.ResumeLayout(false);

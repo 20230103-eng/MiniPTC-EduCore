@@ -20,8 +20,11 @@
         private Vista.UCBotonMenu ucEstudiantes;
         private Vista.UCBotonMenu ucProfesores;
         private Vista.UCBotonMenu ucMaterias;
+        private Vista.UCBotonMenu ucInscripciones;
         private Vista.UCBotonMenu ucCalificaciones;
         private Vista.UCBotonMenu ucUsuarios;
+        private Vista.UCBotonMenu ucPerfil;
+        private Vista.UCBotonMenu ucCerrarSesion;
         private System.Windows.Forms.Panel pnlUsuarioLateral;
         private System.Windows.Forms.TableLayoutPanel tlpUsuarioLateral;
         private System.Windows.Forms.Panel pnlLineaUsuario;
@@ -58,8 +61,11 @@
             this.ucEstudiantes = new Vista.UCBotonMenu();
             this.ucProfesores = new Vista.UCBotonMenu();
             this.ucMaterias = new Vista.UCBotonMenu();
+            this.ucInscripciones = new Vista.UCBotonMenu();
             this.ucCalificaciones = new Vista.UCBotonMenu();
             this.ucUsuarios = new Vista.UCBotonMenu();
+            this.ucPerfil = new Vista.UCBotonMenu();
+            this.ucCerrarSesion = new Vista.UCBotonMenu();
             this.pnlUsuarioLateral = new System.Windows.Forms.Panel();
             this.tlpUsuarioLateral = new System.Windows.Forms.TableLayoutPanel();
             this.picUsuarioLateral = new System.Windows.Forms.PictureBox();
@@ -242,21 +248,27 @@
             this.tlpMenu.Controls.Add(this.ucEstudiantes, 0, 1);
             this.tlpMenu.Controls.Add(this.ucProfesores, 0, 2);
             this.tlpMenu.Controls.Add(this.ucMaterias, 0, 3);
-            this.tlpMenu.Controls.Add(this.ucCalificaciones, 0, 4);
-            this.tlpMenu.Controls.Add(this.ucUsuarios, 0, 5);
+            this.tlpMenu.Controls.Add(this.ucInscripciones, 0, 4);
+            this.tlpMenu.Controls.Add(this.ucCalificaciones, 0, 5);
+            this.tlpMenu.Controls.Add(this.ucUsuarios, 0, 6);
+            this.tlpMenu.Controls.Add(this.ucPerfil, 0, 7);
+            this.tlpMenu.Controls.Add(this.ucCerrarSesion, 0, 8);
             this.tlpMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpMenu.Location = new System.Drawing.Point(0, 0);
             this.tlpMenu.Margin = new System.Windows.Forms.Padding(0);
             this.tlpMenu.Name = "tlpMenu";
             this.tlpMenu.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
-            this.tlpMenu.RowCount = 6;
+            this.tlpMenu.RowCount = 9;
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tlpMenu.Size = new System.Drawing.Size(287, 348);
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tlpMenu.Size = new System.Drawing.Size(287, 516);
             this.tlpMenu.TabIndex = 0;
             // 
             // menu controls
@@ -293,12 +305,20 @@
             this.ucMaterias.TabIndex = 3;
             this.ucMaterias.Texto = "Materias";
             this.ucMaterias.BotonClick += new System.EventHandler(this.ucMaterias_BotonClick);
+            this.ucInscripciones.ArchivoIcono = "icon_cap.png";
+            this.ucInscripciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucInscripciones.Margin = new System.Windows.Forms.Padding(0);
+            this.ucInscripciones.Name = "ucInscripciones";
+            this.ucInscripciones.Seleccionado = false;
+            this.ucInscripciones.TabIndex = 4;
+            this.ucInscripciones.Texto = "Inscripciones";
+            this.ucInscripciones.BotonClick += new System.EventHandler(this.ucInscripciones_BotonClick);
             this.ucCalificaciones.ArchivoIcono = "icon_grades.png";
             this.ucCalificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucCalificaciones.Margin = new System.Windows.Forms.Padding(0);
             this.ucCalificaciones.Name = "ucCalificaciones";
             this.ucCalificaciones.Seleccionado = false;
-            this.ucCalificaciones.TabIndex = 4;
+            this.ucCalificaciones.TabIndex = 5;
             this.ucCalificaciones.Texto = "Calificaciones";
             this.ucCalificaciones.BotonClick += new System.EventHandler(this.ucCalificaciones_BotonClick);
             this.ucUsuarios.ArchivoIcono = "icon_users.png";
@@ -306,9 +326,31 @@
             this.ucUsuarios.Margin = new System.Windows.Forms.Padding(0);
             this.ucUsuarios.Name = "ucUsuarios";
             this.ucUsuarios.Seleccionado = false;
-            this.ucUsuarios.TabIndex = 5;
+            this.ucUsuarios.TabIndex = 6;
             this.ucUsuarios.Texto = "Usuarios";
             this.ucUsuarios.BotonClick += new System.EventHandler(this.ucUsuarios_BotonClick);
+            //
+            // ucPerfil
+            //
+            this.ucPerfil.ArchivoIcono = "icon_user.png";
+            this.ucPerfil.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucPerfil.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPerfil.Name = "ucPerfil";
+            this.ucPerfil.Seleccionado = false;
+            this.ucPerfil.TabIndex = 7;
+            this.ucPerfil.Texto = "Mi perfil";
+            this.ucPerfil.BotonClick += new System.EventHandler(this.ucPerfil_BotonClick);
+            //
+            // ucCerrarSesion
+            //
+            this.ucCerrarSesion.ArchivoIcono = "icon_delete.png";
+            this.ucCerrarSesion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucCerrarSesion.Margin = new System.Windows.Forms.Padding(0);
+            this.ucCerrarSesion.Name = "ucCerrarSesion";
+            this.ucCerrarSesion.Seleccionado = false;
+            this.ucCerrarSesion.TabIndex = 8;
+            this.ucCerrarSesion.Texto = "Cerrar sesión";
+            this.ucCerrarSesion.BotonClick += new System.EventHandler(this.ucCerrarSesion_BotonClick);
             // 
             // pnlUsuarioLateral
             // 

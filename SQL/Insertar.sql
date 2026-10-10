@@ -1,6 +1,7 @@
-USE DbGestionAcademica;
+﻿USE DbGestionAcademica;
 GO
 
+-- insertamos los tres tipos de usuario que son los roles de el sistema
 INSERT INTO tbTipoUsuario (Nombre) VALUES ('Administrador');
 INSERT INTO tbTipoUsuario (Nombre) VALUES ('Profesor');
 INSERT INTO tbTipoUsuario (Nombre) VALUES ('Estudiante');
@@ -29,6 +30,7 @@ INSERT INTO tbUsuario (Codigo, NombreUsuario, Contrasena, NombreCompleto, IdTipo
 VALUES ('2023002', 'est02', '$2a$10$jizyp3gNTHz2QCwDJI6FVutXKbwjM9nuObJquT3KpGlbN6yyUZrtG', 'Carlos Andrés Pérez', 3, 1);
 GO
 
+-- insertamos las materias y le asignamos un profesor a cada una
 INSERT INTO tbMateria (Codigo, Nombre, IdProfesor, Estado)
 VALUES ('MAT001', 'Matemática', 2, 1);
 
@@ -39,20 +41,33 @@ INSERT INTO tbMateria (Codigo, Nombre, IdProfesor, Estado)
 VALUES ('BDD001', 'Base de Datos', 3, 1);
 GO
 
+-- inscribimos a los estudiantes en las materias
 INSERT INTO tbInscripcion (IdEstudiante, IdMateria) VALUES (4, 1);
 INSERT INTO tbInscripcion (IdEstudiante, IdMateria) VALUES (4, 2);
 INSERT INTO tbInscripcion (IdEstudiante, IdMateria) VALUES (5, 1);
 INSERT INTO tbInscripcion (IdEstudiante, IdMateria) VALUES (5, 3);
 GO
 
-INSERT INTO tbCalificacion (IdInscripcion, Periodo, NombreEvaluacion, Nota, Observacion)
-VALUES (1, 1, 'Actividad 1', 8.50, '');
-INSERT INTO tbCalificacion (IdInscripcion, Periodo, NombreEvaluacion, Nota, Observacion)
-VALUES (1, 1, 'Actividad 2', 9.00, '');
-INSERT INTO tbCalificacion (IdInscripcion, Periodo, NombreEvaluacion, Nota, Observacion)
-VALUES (2, 1, 'Proyecto', 8.75, '');
-INSERT INTO tbCalificacion (IdInscripcion, Periodo, NombreEvaluacion, Nota, Observacion)
-VALUES (3, 1, 'Actividad 1', 7.50, '');
-INSERT INTO tbCalificacion (IdInscripcion, Periodo, NombreEvaluacion, Nota, Observacion)
-VALUES (4, 1, 'Proyecto', 9.25, '');
+-- creamos las evaluaciones de cada materia por periodo
+INSERT INTO tbEvaluacion (IdMateria, Periodo, Nombre, Estado)
+VALUES (1, 1, 'Actividad 1', 1);
+INSERT INTO tbEvaluacion (IdMateria, Periodo, Nombre, Estado)
+VALUES (1, 1, 'Actividad 2', 1);
+INSERT INTO tbEvaluacion (IdMateria, Periodo, Nombre, Estado)
+VALUES (2, 1, 'Proyecto', 1);
+INSERT INTO tbEvaluacion (IdMateria, Periodo, Nombre, Estado)
+VALUES (3, 1, 'Proyecto', 1);
+GO
+
+-- insertamos unas notas de prueba para los estudiantes
+INSERT INTO tbCalificacion (IdInscripcion, IdEvaluacion, Nota, Observacion)
+VALUES (1, 1, 8.50, '');
+INSERT INTO tbCalificacion (IdInscripcion, IdEvaluacion, Nota, Observacion)
+VALUES (1, 2, 9.00, '');
+INSERT INTO tbCalificacion (IdInscripcion, IdEvaluacion, Nota, Observacion)
+VALUES (2, 3, 8.75, '');
+INSERT INTO tbCalificacion (IdInscripcion, IdEvaluacion, Nota, Observacion)
+VALUES (3, 1, 7.50, '');
+INSERT INTO tbCalificacion (IdInscripcion, IdEvaluacion, Nota, Observacion)
+VALUES (4, 4, 9.25, '');
 GO

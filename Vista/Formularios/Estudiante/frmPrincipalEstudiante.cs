@@ -100,6 +100,8 @@ namespace Vista
             ucInicio.ArchivoIcono = "icon_home.png";
             ucMaterias.ArchivoIcono = "icon_book.png";
             ucCalificaciones.ArchivoIcono = "icon_grades.png";
+            ucPerfil.ArchivoIcono = "icon_user.png";
+            ucCerrarSesion.ArchivoIcono = "icon_delete.png";
         }
 
         private void ucInicio_BotonClick(object sender, EventArgs e)
@@ -115,6 +117,32 @@ namespace Vista
         private void ucCalificaciones_BotonClick(object sender, EventArgs e)
         {
             MostrarCalificaciones(0);
+        }
+
+        private void ucPerfil_BotonClick(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmPerfilUsuario(idEstudianteLogueado));
+            SeleccionarMenu(ucPerfil);
+        }
+
+        private void ucCerrarSesion_BotonClick(object sender, EventArgs e)
+        {
+            CerrarSesion();
+        }
+
+        private void CerrarSesion()
+        {
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Deseas cerrar la sesión actual?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                return;
+            }
+
+            Sesion.UsuarioActual = null;
+            Close();
         }
 
         private void MostrarInicio()
@@ -203,6 +231,8 @@ namespace Vista
             ucInicio.Seleccionado = false;
             ucMaterias.Seleccionado = false;
             ucCalificaciones.Seleccionado = false;
+            ucPerfil.Seleccionado = false;
+            ucCerrarSesion.Seleccionado = false;
             menuActivo.Seleccionado = true;
         }
     }
