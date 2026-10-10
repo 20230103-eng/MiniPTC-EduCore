@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -43,7 +43,12 @@ namespace Vista
         {
             Rectangle rectangulo;
 
-            if (control.Width <= 0 || control.Height <= 0)
+            if (control == null)
+            {
+                return;
+            }
+
+            if (control.Width <= 1 || control.Height <= 1)
             {
                 return;
             }
@@ -52,6 +57,11 @@ namespace Vista
 
             using (GraphicsPath ruta = CrearRuta(rectangulo, radio))
             {
+                if (control.Region != null)
+                {
+                    control.Region.Dispose();
+                }
+
                 control.Region = new Region(ruta);
             }
         }

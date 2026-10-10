@@ -25,7 +25,7 @@ namespace Vista
         private void frmPrincipalProfesor_Load(object sender, EventArgs e)
         {
             AjustarNavegacion();
-            MostrarMaterias();
+            MostrarInicio();
         }
 
         private void frmPrincipalProfesor_Resize(object sender, EventArgs e)
@@ -72,8 +72,14 @@ namespace Vista
             picUsuarioSuperior.Image = RecursosVisuales.CargarImagen("icon_user.png");
             picUsuarioLateral.Image = RecursosVisuales.CargarImagen("icon_user.png");
 
+            ucInicio.ArchivoIcono = "icon_home.png";
             ucMaterias.ArchivoIcono = "icon_book.png";
             ucCalificaciones.ArchivoIcono = "icon_grades.png";
+        }
+
+        private void ucInicio_BotonClick(object sender, EventArgs e)
+        {
+            MostrarInicio();
         }
 
         private void ucMaterias_BotonClick(object sender, EventArgs e)
@@ -84,6 +90,17 @@ namespace Vista
         private void ucCalificaciones_BotonClick(object sender, EventArgs e)
         {
             MostrarCalificaciones(0);
+        }
+
+        private void MostrarInicio()
+        {
+            frmPanelProfesor formulario;
+
+            formulario = new frmPanelProfesor(idProfesorLogueado);
+            formulario.RegistrarCalificaciones += new EventHandler(formularioPanel_RegistrarCalificaciones);
+            formulario.VerMaterias += new EventHandler(formularioPanel_VerMaterias);
+            AbrirFormulario(formulario);
+            SeleccionarMenu(ucInicio);
         }
 
         private void MostrarMaterias()
@@ -104,6 +121,25 @@ namespace Vista
             formulario.VolverMaterias += new EventHandler(formulario_VolverMaterias);
             AbrirFormulario(formulario);
             SeleccionarMenu(ucCalificaciones);
+        }
+
+        private void formularioPanel_RegistrarCalificaciones(object sender, EventArgs e)
+        {
+            frmPanelProfesor formulario;
+
+            formulario = sender as frmPanelProfesor;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarCalificaciones(formulario.IdMateriaSeleccionada);
+        }
+
+        private void formularioPanel_VerMaterias(object sender, EventArgs e)
+        {
+            MostrarMaterias();
         }
 
         private void formulario_RegistrarCalificaciones(object sender, EventArgs e)
@@ -145,6 +181,7 @@ namespace Vista
 
         private void SeleccionarMenu(UCBotonMenu menuActivo)
         {
+            ucInicio.Seleccionado = false;
             ucMaterias.Seleccionado = false;
             ucCalificaciones.Seleccionado = false;
             menuActivo.Seleccionado = true;

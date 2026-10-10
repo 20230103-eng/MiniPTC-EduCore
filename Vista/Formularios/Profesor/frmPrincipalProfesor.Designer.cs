@@ -18,6 +18,7 @@
         private System.Windows.Forms.Panel pnlCuerpo;
         private System.Windows.Forms.Panel pnlSideNav;
         private System.Windows.Forms.TableLayoutPanel tlpMenu;
+        private Vista.UCBotonMenu ucInicio;
         private Vista.UCBotonMenu ucMaterias;
         private Vista.UCBotonMenu ucCalificaciones;
         private System.Windows.Forms.Panel pnlUsuarioLateral;
@@ -54,6 +55,7 @@
             this.pnlContenido = new System.Windows.Forms.Panel();
             this.pnlSideNav = new System.Windows.Forms.Panel();
             this.tlpMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.ucInicio = new Vista.UCBotonMenu();
             this.ucMaterias = new Vista.UCBotonMenu();
             this.ucCalificaciones = new Vista.UCBotonMenu();
             this.pnlUsuarioLateral = new System.Windows.Forms.Panel();
@@ -263,28 +265,43 @@
             //
             this.tlpMenu.ColumnCount = 1;
             this.tlpMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMenu.Controls.Add(this.ucMaterias, 0, 0);
-            this.tlpMenu.Controls.Add(this.ucCalificaciones, 0, 1);
+            this.tlpMenu.Controls.Add(this.ucInicio, 0, 0);
+            this.tlpMenu.Controls.Add(this.ucMaterias, 0, 1);
+            this.tlpMenu.Controls.Add(this.ucCalificaciones, 0, 2);
             this.tlpMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpMenu.Location = new System.Drawing.Point(0, 0);
             this.tlpMenu.Margin = new System.Windows.Forms.Padding(0);
             this.tlpMenu.Name = "tlpMenu";
-            this.tlpMenu.RowCount = 2;
+            this.tlpMenu.RowCount = 3;
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            this.tlpMenu.Size = new System.Drawing.Size(287, 128);
+            this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tlpMenu.Size = new System.Drawing.Size(287, 192);
             this.tlpMenu.TabIndex = 0;
             //
+            // ucInicio
+            // 
+            this.ucInicio.ArchivoIcono = "icon_home.png";
+            this.ucInicio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucInicio.Location = new System.Drawing.Point(0, 0);
+            this.ucInicio.Margin = new System.Windows.Forms.Padding(0);
+            this.ucInicio.Name = "ucInicio";
+            this.ucInicio.Seleccionado = false;
+            this.ucInicio.Size = new System.Drawing.Size(287, 64);
+            this.ucInicio.TabIndex = 0;
+            this.ucInicio.Texto = "Inicio";
+            this.ucInicio.BotonClick += new System.EventHandler(this.ucInicio_BotonClick);
+            // 
             // ucMaterias
             //
             this.ucMaterias.ArchivoIcono = "icon_book.png";
             this.ucMaterias.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucMaterias.Location = new System.Drawing.Point(0, 0);
+            this.ucMaterias.Location = new System.Drawing.Point(0, 64);
             this.ucMaterias.Margin = new System.Windows.Forms.Padding(0);
             this.ucMaterias.Name = "ucMaterias";
             this.ucMaterias.Seleccionado = false;
             this.ucMaterias.Size = new System.Drawing.Size(287, 64);
-            this.ucMaterias.TabIndex = 0;
+            this.ucMaterias.TabIndex = 1;
             this.ucMaterias.Texto = "Mis materias";
             this.ucMaterias.BotonClick += new System.EventHandler(this.ucMaterias_BotonClick);
             //
@@ -292,12 +309,12 @@
             //
             this.ucCalificaciones.ArchivoIcono = "icon_grades.png";
             this.ucCalificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucCalificaciones.Location = new System.Drawing.Point(0, 64);
+            this.ucCalificaciones.Location = new System.Drawing.Point(0, 128);
             this.ucCalificaciones.Margin = new System.Windows.Forms.Padding(0);
             this.ucCalificaciones.Name = "ucCalificaciones";
             this.ucCalificaciones.Seleccionado = false;
             this.ucCalificaciones.Size = new System.Drawing.Size(287, 64);
-            this.ucCalificaciones.TabIndex = 1;
+            this.ucCalificaciones.TabIndex = 2;
             this.ucCalificaciones.Texto = "Calificaciones";
             this.ucCalificaciones.BotonClick += new System.EventHandler(this.ucCalificaciones_BotonClick);
             //

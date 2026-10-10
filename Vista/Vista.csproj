@@ -61,6 +61,8 @@
     <Compile Include="Formularios\Administrador\frmCalificaciones.Designer.cs"><DependentUpon>frmCalificaciones.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmPrincipalProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmPrincipalProfesor.Designer.cs"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Profesor\frmPanelProfesor.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Profesor\frmPanelProfesor.Designer.cs"><DependentUpon>frmPanelProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmMateriasProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmMateriasProfesor.Designer.cs"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.cs"><SubType>Form</SubType></Compile>
@@ -87,6 +89,12 @@
     <Compile Include="UserControls\Administrador\UCTablaUsuarios.Designer.cs"><DependentUpon>UCTablaUsuarios.cs</DependentUpon></Compile>
     <Compile Include="UserControls\Administrador\UCTarjetaKPI.cs"><SubType>UserControl</SubType></Compile>
     <Compile Include="UserControls\Administrador\UCTarjetaKPI.Designer.cs"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Profesor\UCTarjetaProfesorKPI.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Profesor\UCTarjetaProfesorKPI.Designer.cs"><DependentUpon>UCTarjetaProfesorKPI.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Profesor\UCTarjetaMateriaProfesor.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Profesor\UCTarjetaMateriaProfesor.Designer.cs"><DependentUpon>UCTarjetaMateriaProfesor.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Profesor\UCActividadProfesor.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Profesor\UCActividadProfesor.Designer.cs"><DependentUpon>UCActividadProfesor.cs</DependentUpon></Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Formularios\Administrador\frmPrincipalAdministrador.resx"><DependentUpon>frmPrincipalAdministrador.cs</DependentUpon></EmbeddedResource>
@@ -97,6 +105,7 @@
     <EmbeddedResource Include="Formularios\Administrador\frmMaterias.resx"><DependentUpon>frmMaterias.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\frmCalificaciones.resx"><DependentUpon>frmCalificaciones.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmPrincipalProfesor.resx"><DependentUpon>frmPrincipalProfesor.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Profesor\frmPanelProfesor.resx"><DependentUpon>frmPanelProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmMateriasProfesor.resx"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.resx"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administrador\UCTarjetaKPI.resx"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></EmbeddedResource>

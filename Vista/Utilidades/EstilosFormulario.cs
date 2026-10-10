@@ -121,7 +121,7 @@ namespace Vista
             boton.FlatAppearance.BorderSize = 0;
             boton.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             boton.Cursor = Cursors.Hand;
-            BordesRedondeados.AplicarRegion(boton, 6);
+            AplicarEstiloBaseBoton(boton, 6);
         }
 
         public static void AplicarBotonPrimario(Button boton)
@@ -132,7 +132,7 @@ namespace Vista
             boton.FlatAppearance.BorderSize = 0;
             boton.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             boton.Cursor = Cursors.Hand;
-            BordesRedondeados.AplicarRegion(boton, 6);
+            AplicarEstiloBaseBoton(boton, 6);
         }
 
         public static void AplicarBotonEliminar(Button boton)
@@ -144,7 +144,45 @@ namespace Vista
             boton.FlatAppearance.BorderSize = 1;
             boton.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             boton.Cursor = Cursors.Hand;
-            BordesRedondeados.AplicarRegion(boton, 6);
+            AplicarEstiloBaseBoton(boton, 6);
+        }
+
+        private static void AplicarEstiloBaseBoton(Button boton, int radio)
+        {
+            boton.TextAlign = ContentAlignment.MiddleCenter;
+            boton.ImageAlign = ContentAlignment.MiddleLeft;
+            boton.UseVisualStyleBackColor = false;
+            boton.Resize -= Boton_Resize;
+            boton.Resize += Boton_Resize;
+            boton.Tag = radio;
+            BordesRedondeados.AplicarRegion(boton, radio);
+        }
+
+        private static void Boton_Resize(object sender, System.EventArgs e)
+        {
+            Button boton;
+            int radio;
+
+            boton = sender as Button;
+
+            if (boton == null)
+            {
+                return;
+            }
+
+            radio = 6;
+
+            if (boton.Tag != null)
+            {
+                int.TryParse(boton.Tag.ToString(), out radio);
+            }
+
+            if (radio <= 0)
+            {
+                radio = 6;
+            }
+
+            BordesRedondeados.AplicarRegion(boton, radio);
         }
     }
 }

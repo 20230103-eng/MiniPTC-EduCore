@@ -294,5 +294,116 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+
+
+        public DataTable ObtenerCalificacionesPorProfesor(int idProfesor)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                tbCalificacion.IdCalificacion,
+                tbCalificacion.IdInscripcion,
+                tbUsuario.IdUsuario AS IdEstudiante,
+                tbUsuario.Codigo,
+                tbUsuario.NombreCompleto AS Estudiante,
+                tbMateria.IdMateria,
+                tbMateria.Nombre AS Materia,
+                tbCalificacion.Periodo,
+                tbCalificacion.NombreEvaluacion,
+                tbCalificacion.Nota,
+                tbCalificacion.Observacion
+            FROM tbCalificacion
+            INNER JOIN tbInscripcion ON tbCalificacion.IdInscripcion = tbInscripcion.IdInscripcion
+            INNER JOIN tbUsuario ON tbInscripcion.IdEstudiante = tbUsuario.IdUsuario
+            INNER JOIN tbMateria ON tbInscripcion.IdMateria = tbMateria.IdMateria
+            WHERE tbMateria.IdProfesor = @IdProfesor
+            ORDER BY tbCalificacion.IdCalificacion DESC";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdProfesor", idProfesor);
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar las calificaciones del profesor.", "Profesor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
+        public DataTable ObtenerEvaluacionesPorMateria(int idProfesor, int idMateria, int periodo)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT tbCalificacion.NombreEvaluacion
+            FROM tbCalificacion
+            INNER JOIN tbInscripcion ON tbCalificacion.IdInscripcion = tbInscripcion.IdInscripcion
+            INNER JOIN tbMateria ON tbInscripcion.IdMateria = tbMateria.IdMateria
+            WHERE tbMateria.IdProfesor = @IdProfesor
+            AND tbMateria.IdMateria = @IdMateria
+            AND tbCalificacion.Periodo = @Periodo
+            ORDER BY tbCalificacion.IdCalificacion";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdProfesor", idProfesor);
+                    comando.Parameters.AddWithValue("@IdMateria", idMateria);
+                    comando.Parameters.AddWithValue("@Periodo", periodo);
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar las evaluaciones de la materia.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
     }
 }
