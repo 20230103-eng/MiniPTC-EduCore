@@ -522,5 +522,57 @@ namespace Modelo.Modelo.Entidades
 
             return Convert.ToInt32(resultado);
         }
+
+        public DataTable ObtenerUsuarioPorId(int idUsuarioBuscado)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                tbUsuario.IdUsuario,
+                tbUsuario.Codigo,
+                tbUsuario.NombreUsuario,
+                tbUsuario.NombreCompleto,
+                tbTipoUsuario.Nombre AS TipoUsuario,
+                tbUsuario.Estado
+            FROM tbUsuario
+            INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+            WHERE tbUsuario.IdUsuario = @IdUsuario";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuarioBuscado);
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar la información del usuario.", "Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
     }
 }

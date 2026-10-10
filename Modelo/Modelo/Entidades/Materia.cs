@@ -279,5 +279,60 @@ namespace Modelo.Modelo.Entidades
             return tabla;
         }
 
+
+        public DataTable ObtenerMateriasPorEstudiante(int idEstudiante, string textoBuscar)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                tbMateria.IdMateria,
+                tbMateria.Codigo,
+                tbMateria.Nombre,
+                tbUsuario.NombreCompleto AS Profesor,
+                tbMateria.Estado
+            FROM tbInscripcion
+            INNER JOIN tbMateria ON tbInscripcion.IdMateria = tbMateria.IdMateria
+            INNER JOIN tbUsuario ON tbMateria.IdProfesor = tbUsuario.IdUsuario
+            WHERE tbInscripcion.IdEstudiante = @IdEstudiante
+            AND (tbMateria.Codigo LIKE @Buscar OR tbMateria.Nombre LIKE @Buscar OR tbUsuario.NombreCompleto LIKE @Buscar)
+            ORDER BY tbMateria.Nombre";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdEstudiante", idEstudiante);
+                    comando.Parameters.AddWithValue("@Buscar", "%" + textoBuscar + "%");
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar las materias del estudiante.", "Materias", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
     }
 }

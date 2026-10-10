@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Formularios\InicioSesion\frmInicioSesion.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\InicioSesion\frmInicioSesion.Designer.cs"><DependentUpon>frmInicioSesion.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Administrador\frmPrincipalAdministrador.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Administrador\frmPrincipalAdministrador.Designer.cs"><DependentUpon>frmPrincipalAdministrador.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Administrador\frmPanelAdministrador.cs"><SubType>Form</SubType></Compile>
@@ -67,6 +69,20 @@
     <Compile Include="Formularios\Profesor\frmMateriasProfesor.Designer.cs"><DependentUpon>frmMateriasProfesor.cs</DependentUpon></Compile>
     <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Formularios\Profesor\frmRegistrarCalificacionesProfesor.Designer.cs"><DependentUpon>frmRegistrarCalificacionesProfesor.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Estudiante\frmPrincipalEstudiante.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Estudiante\frmPrincipalEstudiante.Designer.cs"><DependentUpon>frmPrincipalEstudiante.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Estudiante\frmPanelEstudiante.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Estudiante\frmPanelEstudiante.Designer.cs"><DependentUpon>frmPanelEstudiante.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Estudiante\frmMateriasEstudiante.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Estudiante\frmMateriasEstudiante.Designer.cs"><DependentUpon>frmMateriasEstudiante.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Estudiante\frmCalificacionesEstudiante.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Estudiante\frmCalificacionesEstudiante.Designer.cs"><DependentUpon>frmCalificacionesEstudiante.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Estudiante\UCTarjetaEstudianteKPI.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Estudiante\UCTarjetaEstudianteKPI.Designer.cs"><DependentUpon>UCTarjetaEstudianteKPI.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Estudiante\UCTarjetaMateriaEstudiante.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Estudiante\UCTarjetaMateriaEstudiante.Designer.cs"><DependentUpon>UCTarjetaMateriaEstudiante.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Estudiante\UCCalificacionEstudiante.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Estudiante\UCCalificacionEstudiante.Designer.cs"><DependentUpon>UCCalificacionEstudiante.cs</DependentUpon></Compile>
     <Compile Include="Utilidades\ColoresInterfaz.cs" />
     <Compile Include="Utilidades\RecursosVisuales.cs" />
     <Compile Include="Utilidades\BordesRedondeados.cs" />

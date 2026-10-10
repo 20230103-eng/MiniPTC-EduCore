@@ -405,5 +405,63 @@ namespace Modelo.Modelo.Entidades
 
             return tabla;
         }
+
+        public DataTable ObtenerCalificacionesPorEstudiante(int idEstudiante)
+        {
+            string consulta;
+            DataTable tabla;
+            SqlConnection conexion;
+
+            consulta = @"
+            SELECT
+                tbCalificacion.IdCalificacion,
+                tbMateria.IdMateria,
+                tbMateria.Codigo AS CodigoMateria,
+                tbMateria.Nombre AS Materia,
+                tbUsuario.NombreCompleto AS Profesor,
+                tbCalificacion.Periodo,
+                tbCalificacion.NombreEvaluacion,
+                tbCalificacion.Nota,
+                tbCalificacion.Observacion
+            FROM tbCalificacion
+            INNER JOIN tbInscripcion ON tbCalificacion.IdInscripcion = tbInscripcion.IdInscripcion
+            INNER JOIN tbMateria ON tbInscripcion.IdMateria = tbMateria.IdMateria
+            INNER JOIN tbUsuario ON tbMateria.IdProfesor = tbUsuario.IdUsuario
+            WHERE tbInscripcion.IdEstudiante = @IdEstudiante
+            ORDER BY tbCalificacion.IdCalificacion DESC";
+
+            tabla = new DataTable();
+            conexion = Conexion.conectar();
+
+            if (conexion == null)
+            {
+                return tabla;
+            }
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdEstudiante", idEstudiante);
+
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No fue posible consultar las calificaciones del estudiante.", "Calificaciones", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            return tabla;
+        }
+
     }
 }
