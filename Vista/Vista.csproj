@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F37B2B3-6487-49BB-8F91-3E09C391517A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vista</RootNamespace>
+    <AssemblyName>Vista</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <StartupObject>Vista.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Formularios\Administrador\frmPrincipalAdministrador.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmPrincipalAdministrador.Designer.cs"><DependentUpon>frmPrincipalAdministrador.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmPanelAdministrador.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmPanelAdministrador.Designer.cs"><DependentUpon>frmPanelAdministrador.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmUsuarios.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmUsuarios.Designer.cs"><DependentUpon>frmUsuarios.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmEstudiantes.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmEstudiantes.Designer.cs"><DependentUpon>frmEstudiantes.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmProfesores.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmProfesores.Designer.cs"><DependentUpon>frmProfesores.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmMaterias.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmMaterias.Designer.cs"><DependentUpon>frmMaterias.cs</DependentUpon></Compile>
+    <Compile Include="Formularios\Administrador\frmCalificaciones.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="Formularios\Administrador\frmCalificaciones.Designer.cs"><DependentUpon>frmCalificaciones.cs</DependentUpon></Compile>
+    <Compile Include="Utilidades\ColoresInterfaz.cs" />
+    <Compile Include="Utilidades\RecursosVisuales.cs" />
+    <Compile Include="Utilidades\BordesRedondeados.cs" />
+    <Compile Include="Utilidades\EstilosFormulario.cs" />
+    <Compile Include="UserControls\Compartidos\UCBotonMenu.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCBotonMenu.Designer.cs"><DependentUpon>UCBotonMenu.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCCajaBusqueda.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCCajaBusqueda.Designer.cs"><DependentUpon>UCCajaBusqueda.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCSelectorTipo.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCSelectorTipo.Designer.cs"><DependentUpon>UCSelectorTipo.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCBotonAccion.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCBotonAccion.Designer.cs"><DependentUpon>UCBotonAccion.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCChipEstado.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCChipEstado.Designer.cs"><DependentUpon>UCChipEstado.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Compartidos\UCEncabezadoPagina.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Compartidos\UCEncabezadoPagina.Designer.cs"><DependentUpon>UCEncabezadoPagina.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Administrador\UCFilaUsuario.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Administrador\UCFilaUsuario.Designer.cs"><DependentUpon>UCFilaUsuario.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Administrador\UCTablaUsuarios.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Administrador\UCTablaUsuarios.Designer.cs"><DependentUpon>UCTablaUsuarios.cs</DependentUpon></Compile>
+    <Compile Include="UserControls\Administrador\UCTarjetaKPI.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Include="UserControls\Administrador\UCTarjetaKPI.Designer.cs"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Formularios\Administrador\frmPrincipalAdministrador.resx"><DependentUpon>frmPrincipalAdministrador.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmPanelAdministrador.resx"><DependentUpon>frmPanelAdministrador.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmUsuarios.resx"><DependentUpon>frmUsuarios.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmEstudiantes.resx"><DependentUpon>frmEstudiantes.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmProfesores.resx"><DependentUpon>frmProfesores.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmMaterias.resx"><DependentUpon>frmMaterias.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\frmCalificaciones.resx"><DependentUpon>frmCalificaciones.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administrador\UCTarjetaKPI.resx"><DependentUpon>UCTarjetaKPI.cs</DependentUpon></EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="Recursos\*.png"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{0565527D-A81F-4EB7-A136-BC8B93D6A159}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
